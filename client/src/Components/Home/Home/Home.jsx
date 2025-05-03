@@ -3,6 +3,7 @@ import HomeCarosel from '../HomeCarosel/HomeCarosel'
 import FeaturedSection from '../FeaturedSection/FeaturedSection'
 import Promotions from '../Promotions/Promotions'
 import Newsletter from '../Newsletter/Newsletter'
+import ProductListing from '../../Product/ProductListing/ProductListing'
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <HomeCarosel></HomeCarosel>
       <FeaturedSection></FeaturedSection>
       <Promotions></Promotions>
+      <ProductListing></ProductListing>
       <Newsletter></Newsletter>
     </div>
   )
