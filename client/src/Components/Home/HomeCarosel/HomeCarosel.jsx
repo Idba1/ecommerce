@@ -26,7 +26,7 @@ const data = [
 
 const HomeCarosel = () => {
     const items = data.map((item, index) => (
-        <div key={index} className="relative w-full h-[50vh] md:h-[60vh] lg:h-[70vh]">
+        <div key={index} className="relative w-full h-[20vh] md:h-[40vh] lg:h-[70vh] bg-black flex items-center justify-center">
             <img
                 src={item.image}
                 alt={`Carousel Image ${index + 1}`}
