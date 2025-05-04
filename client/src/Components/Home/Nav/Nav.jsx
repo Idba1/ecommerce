@@ -1,17 +1,22 @@
-import { FaShoppingCart, FaHeart, FaGift, FaUser, FaSearch, FaCamera } from "react-icons/fa";
+import { FaShoppingCart, FaGift, FaUser, FaSearch, FaCamera } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Nav = () => {
+    const { user, logOut } = useContext(AuthContext);
+    const [open, setOpen] = useState(false);
+
+    const handleLogout = () => {
+        logOut()
+            .then(() => setOpen(false))
+            .catch((err) => console.error(err));
+    };
+
     return (
         <nav className="w-full bg-[#F5B246] py-2 px-4 flex items-center justify-between flex-wrap gap-2 sm:gap-0">
-
             {/* Logo */}
-            {/* <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full text-sm sm:text-base">
-        <FaShoppingCart className="text-blue-500 text-lg sm:text-xl" />
-        <span className="font-bold text-black whitespace-nowrap">
-          <span className="text-blue-500">e24</span>
-        </span>
-      </div> */}
             <Link to="/" className="flex items-center gap-2">
                 <img src="/logo.jpg" alt="E24.com.bd logo" className="h-8 w-auto" />
                 <span className="text-xl font-bold text-gray-800">E24.com.bd</span>
@@ -32,18 +37,49 @@ const Nav = () => {
                 </button>
             </div>
 
-            {/* Icons */}
-            <div className="flex gap-4 text-white text-lg items-center mt-2 sm:mt-0">
-                <div className="relative">
+            {/* Right Icons */}
+            <div className="flex gap-4 text-white text-lg items-center mt-2 sm:mt-0 relative">
+                <Link to="/cart" className="relative">
                     <FaShoppingCart />
                     <span className="absolute -top-2 -right-2 text-[10px] bg-white text-black rounded-full px-1">0</span>
-                </div>
-                <div className="relative">
-                    <FaHeart />
-                    <span className="absolute -top-2 -right-2 text-[10px] bg-white text-black rounded-full px-1">0</span>
-                </div>
+                </Link>
+
                 <FaGift />
-                <FaUser />
+
+                {user ? (
+                    <div className="relative">
+                        <button
+                            onClick={() => setOpen(!open)}
+                            className="w-8 h-8 rounded-full overflow-hidden border-2 border-white"
+                            title={user.displayName}
+                        >
+                            <img
+                                src={user.photoURL}
+                                alt="Profile"
+                                referrerPolicy="no-referrer"
+                                className="w-full h-full object-cover"
+                            />
+                        </button>
+
+                        {/* Dropdown */}
+                        {open && (
+                            <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg z-10">
+                                <Link to="/dashboard" className="block px-4 py-2 hover:bg-gray-100">Dashboard</Link>
+                                <Link to="/orders" className="block px-4 py-2 hover:bg-gray-100">My Orders</Link>
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                                >
+                                    <FiLogOut /> Logout
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <Link to="/login" className="hover:text-white">
+                        <FaUser />
+                    </Link>
+                )}
             </div>
         </nav>
     );
