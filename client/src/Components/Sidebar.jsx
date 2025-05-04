@@ -12,9 +12,10 @@ const Sidebar = () => {
     ];
 
     return (
-        <div className="h-full bg-white border-r p-4">
+        <div className="h-screen flex flex-col bg-white border-r p-4">
             <h2 className="text-xl font-bold mb-6 text-center">E-24 Menu</h2>
-            <nav className="flex flex-col space-y-4">
+
+            <nav className="flex flex-col space-y-4 flex-grow">
                 {menuItems.map((item) => (
                     <NavLink
                         key={item.name}
@@ -29,6 +30,10 @@ const Sidebar = () => {
                     </NavLink>
                 ))}
             </nav>
+
+            <footer className="mt-auto text-center text-sm text-gray-500 pt-4 border-t">
+                &copy; {new Date().getFullYear()} E-24
+            </footer>
         </div>
     );
 };
