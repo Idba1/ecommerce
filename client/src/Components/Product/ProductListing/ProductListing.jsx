@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { products as mockProducts } from "../../../data/mockProducts";
+import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard/ProductCard";
 
 const categories = [
@@ -9,7 +8,8 @@ const categories = [
     "watches",
     "winter",
     "eyeglasses",
-    "electronics"
+    "electronics",
+    "accessories" // added in case you want to show bags or umbrellas
 ];
 
 const sortOptions = [
@@ -19,14 +19,35 @@ const sortOptions = [
 ];
 
 const ProductListing = () => {
+    const [products, setProducts] = useState([]);
     const [category, setCategory] = useState("All");
     const [sortBy, setSortBy] = useState("rating");
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const itemsPerPage = 8;
 
+    useEffect(() => {
+        const fetchProducts = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch("http://localhost:5000/collection");
+                const data = await res.json();
+                setProducts(data);
+            } catch (err) {
+                console.error("Error fetching products:", err);
+                setError("Failed to load products.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
     const filtered = category === "All"
-        ? mockProducts
-        : mockProducts.filter((p) => p.category === category);
+        ? products
+        : products.filter((p) => p.category.toLowerCase() === category.toLowerCase());
 
     const sorted = [...filtered].sort((a, b) => {
         if (sortBy === "price-asc") return a.discountPrice - b.discountPrice;
@@ -52,7 +73,9 @@ const ProductListing = () => {
                         className="border rounded px-3 py-2"
                     >
                         {categories.map((cat) => (
-                            <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+                            <option key={cat} value={cat}>
+                                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                            </option>
                         ))}
                     </select>
                 </div>
@@ -65,37 +88,48 @@ const ProductListing = () => {
                         className="border rounded px-3 py-2"
                     >
                         {sortOptions.map((opt) => (
-                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                            <option key={opt.value} value={opt.value}>
+                                {opt.label}
+                            </option>
                         ))}
                     </select>
                 </div>
             </div>
 
-            {/* Product Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {paginated.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
-            </div>
+            {/* Loading/Error Handling */}
+            {loading ? (
+                <p>Loading products...</p>
+            ) : error ? (
+                <p className="text-red-500">{error}</p>
+            ) : (
+                <>
+                    {/* Product Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {paginated.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                    </div>
 
-            {/* Pagination */}
-            <div className="mt-6 flex justify-center items-center gap-2">
-                <button
-                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 border rounded disabled:opacity-50"
-                >
-                    Prev
-                </button>
-                <span className="px-4">Page {currentPage} of {totalPages}</span>
-                <button
-                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 border rounded disabled:opacity-50"
-                >
-                    Next
-                </button>
-            </div>
+                    {/* Pagination */}
+                    <div className="mt-6 flex justify-center items-center gap-2">
+                        <button
+                            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                            className="px-4 py-2 border rounded disabled:opacity-50"
+                        >
+                            Prev
+                        </button>
+                        <span className="px-4">Page {currentPage} of {totalPages}</span>
+                        <button
+                            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                            className="px-4 py-2 border rounded disabled:opacity-50"
+                        >
+                            Next
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
