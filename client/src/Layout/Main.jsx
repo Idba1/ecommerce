@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
 import Sidebar from "../Components/Sidebar";
+import Nav from "../Components/Home/Nav/Nav";
 
 const Main = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen overflow-x-hidden">
-      {/* Static Sidebar for desktop */}
-      <aside className="hidden md:block fixed top-0 left-0 w-64 h-full bg-white shadow z-50">
+    <div className="min-h-screen relative bg-gray-50">
+      {/* Full-width fixed top Nav */}
+      <div className="fixed top-0 left-0 w-full z-40">
+        <Nav />
+      </div>
+
+      {/* Sidebar for desktop */}
+      <aside className="hidden md:block fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] bg-white shadow z-30">
         <Sidebar />
       </aside>
 
@@ -21,7 +25,7 @@ const Main = () => {
           onClick={() => setSidebarOpen(false)}
         >
           <div
-            className="w-64 h-full bg-white shadow z-50"
+            className="w-64 h-full bg-white shadow"
             onClick={(e) => e.stopPropagation()}
           >
             <Sidebar />
@@ -29,29 +33,26 @@ const Main = () => {
         </div>
       )}
 
-      {/* Main Content */}
-      <div className="flex-1 w-full md:ml-64 flex flex-col">
-        {/* Mobile Top Bar with Hamburger */}
-        <div className="md:hidden p-4 bg-white shadow flex items-center justify-between">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="text-gray-700 text-2xl"
-          >
-            ☰
-          </button>
-          <div className="text-lg font-semibold">E-24</div>
-        </div>
+      {/* Main Content Area */}
+      <div className="pt-16 flex">
+        {/* Push content for desktop view when sidebar is visible */}
+        <div className="hidden md:block w-64"></div>
 
-        {/* Navbar */}
-        {/* <Navbar /> */}
+        <div className="flex-1 p-4">
+          {/* Mobile Top Bar with Hamburger / Close */}
+          <div className="md:hidden mb-4 flex items-center justify-between">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="text-gray-700 text-2xl"
+            >
+              {sidebarOpen ? "✕" : "☰"}
+            </button>
+            <div className="text-lg font-semibold">E-24</div>
+          </div>
 
-        {/* Page Content */}
-        <div className="flex-grow p-4">
+          {/* Outlet for routing */}
           <Outlet />
         </div>
-
-        {/* Footer */}
-        {/* <Footer /> */}
       </div>
     </div>
   );

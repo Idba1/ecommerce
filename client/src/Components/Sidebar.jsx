@@ -13,7 +13,7 @@ const Sidebar = () => {
 
     return (
         <div className="h-screen flex flex-col bg-white border-r p-4">
-            <h2 className="text-xl font-bold mb-6 text-center">E-24 Menu</h2>
+            {/* <h2 className="text-xl font-bold mb-6 text-center">E-24 Menu</h2> */}
 
             <nav className="flex flex-col space-y-4 flex-grow">
                 {menuItems.map((item) => (

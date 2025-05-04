@@ -16,10 +16,10 @@ const Navbar = () => {
         <nav className="bg-white shadow-sm w-full z-50 sticky top-0">
             <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                 {/* Logo */}
-                {/* <Link to="/" className="flex items-center gap-2">
+                <Link to="/" className="flex items-center gap-2">
                     <img src="/logo.jpg" alt="E24.com.bd logo" className="h-8 w-auto" />
                     <span className="text-xl font-bold text-gray-800">E24.com.bd</span>
-                </Link> */}
+                </Link>
 
                 {/* Desktop Menu */}
                 <ul className="hidden lg:flex gap-6 items-center font-medium text-gray-700">

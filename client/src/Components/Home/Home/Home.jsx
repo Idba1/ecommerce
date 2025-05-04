@@ -7,18 +7,21 @@ import ProductListing from '../../Product/ProductListing/ProductListing'
 import HeroSection from '../Hero/HeroSection'
 import Navbar from '../../Navbar'
 import Footer from '../../Footer'
+import Nav from '../Nav/Nav'
 
 const Home = () => {
   return (
     <div>
         {/* <HeroSection></HeroSection> */}
         {/* <Navbar></Navbar> */}
-      <HomeCarosel></HomeCarosel>
-      <FeaturedSection></FeaturedSection>
-      <Promotions></Promotions>
-      <ProductListing></ProductListing>
-      <Newsletter></Newsletter>
-      <Footer></Footer>
+      {/* <HomeCarosel></HomeCarosel> */}
+      {/* <FeaturedSection></FeaturedSection> */}
+      {/* <Promotions></Promotions> */}
+      {/* <ProductListing></ProductListing> */}
+      {/* <Newsletter></Newsletter> */}
+      {/* <Footer></Footer> */}
+      {/* <Nav></Nav> */}
+      <HeroSection></HeroSection>
     </div>
   )
 }
