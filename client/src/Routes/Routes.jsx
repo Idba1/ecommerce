@@ -7,6 +7,7 @@ import Home from "../Components/Home/Home/Home";
 import ProductListing from "../Components/Product/ProductListing/ProductListing";
 import Clothe from "../Components/Product/Clothe/Clothe";
 import CategoryPage from "../Components/Product/CategoryPage/CategoryPage";
+import ProductDetails from "../Components/Product/ProductDetails/ProductDetails";
 
 const Routes = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const Routes = createBrowserRouter([
                 {
                     path: '/category/:categoryName',
                     element: <CategoryPage />
+                },
+                {
+                    path: '/product-details',
+                    element: <ProductDetails />
                 },
             ]
     }
