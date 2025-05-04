@@ -50,19 +50,33 @@ async function run() {
             try {
                 const { id } = req.params;
                 const product = await collection.findOne({ _id: new ObjectId(id) });
-        
+
                 if (!product) {
                     return res.status(404).json({ error: "Product not found" });
                 }
-        
+
                 res.json(product);
             } catch (error) {
                 console.error("Error fetching product:", error);
                 res.status(500).json({ error: "Server error", details: error.message });
             }
-            
+
         });
-        
+
+        app.post('/collection', async (req, res) => {
+            try {
+                const product = req.body;
+
+                // Optional: Add validations here
+
+                const result = await client.db("e-24").collection("collection").insertOne(product);
+                res.status(201).json({ insertedId: result.insertedId });
+            } catch (err) {
+                console.error("Error inserting product:", err);
+                res.status(500).json({ error: "Failed to add product." });
+            }
+        });
+
 
     } catch (error) {
         console.error("MongoDB connection failed:", error);
