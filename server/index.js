@@ -19,19 +19,42 @@ async function run() {
         await client.connect();
         const collection = client.db("e-24").collection("collection");
         const cartCollection = client.db("e-24").collection("cart");
-        
+
 
         // Get all cart items by user email
         app.get("/cart", async (req, res) => {
             const email = req.query.email;
-            const result = await cartCollection.find({ userEmail: email }).toArray();
-            res.send(result);
+            if (!email) {
+                return res.status(400).send({ message: "Missing email" });
+            }
+
+            const items = await cartCollection.find({ userEmail: email }).toArray();
+            res.send(items);
         });
+
 
         // Add an item to cart
         app.post("/cart", async (req, res) => {
             const item = req.body;
             const result = await cartCollection.insertOne(item);
+            res.send(result);
+        });
+
+        // Update quantity
+        app.patch('/cart/:id', async (req, res) => {
+            const { id } = req.params;
+            const { quantity } = req.body;
+            const result = await cartCollection.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: { quantity } }
+            );
+            res.send(result);
+        });
+
+        // Remove item
+        app.delete('/cart/:id', async (req, res) => {
+            const { id } = req.params;
+            const result = await cartCollection.deleteOne({ _id: new ObjectId(id) });
             res.send(result);
         });
 
