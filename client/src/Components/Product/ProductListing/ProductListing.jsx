@@ -9,7 +9,7 @@ const categories = [
     "winter",
     "eyeglasses",
     "electronics",
-    "accessories" // added in case you want to show bags or umbrellas
+    "accessories"
 ];
 
 const sortOptions = [
@@ -45,14 +45,19 @@ const ProductListing = () => {
         fetchProducts();
     }, []);
 
+    // Reset page if sorting or category changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [category, sortBy]);
+
     const filtered = category === "All"
         ? products
-        : products.filter((p) => p.category.toLowerCase() === category.toLowerCase());
+        : products.filter((p) => p.category?.toLowerCase() === category.toLowerCase());
 
     const sorted = [...filtered].sort((a, b) => {
-        if (sortBy === "price-asc") return a.discountPrice - b.discountPrice;
-        if (sortBy === "price-desc") return b.discountPrice - a.discountPrice;
-        if (sortBy === "rating") return b.rating - a.rating;
+        if (sortBy === "price-asc") return (a.price || 0) - (b.price || 0);
+        if (sortBy === "price-desc") return (b.price || 0) - (a.price || 0);
+        if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0);
         return 0;
     });
 
@@ -61,52 +66,47 @@ const ProductListing = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
+            {/* Filters and Sorting */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 {/* Category Filter */}
-                <div>
-                    <select
-                        value={category}
-                        onChange={(e) => {
-                            setCategory(e.target.value);
-                            setCurrentPage(1);
-                        }}
-                        className="border rounded px-3 py-2"
-                    >
-                        {categories.map((cat) => (
-                            <option key={cat} value={cat}>
-                                {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="border rounded px-3 py-2"
+                >
+                    {categories.map((cat) => (
+                        <option key={cat} value={cat}>
+                            {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                        </option>
+                    ))}
+                </select>
 
-                {/* Sorting */}
-                <div>
-                    <select
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value)}
-                        className="border rounded px-3 py-2"
-                    >
-                        {sortOptions.map((opt) => (
-                            <option key={opt.value} value={opt.value}>
-                                {opt.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                {/* Sorting Options */}
+                <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="border rounded px-3 py-2"
+                >
+                    {sortOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                        </option>
+                    ))}
+                </select>
             </div>
 
-            {/* Loading/Error Handling */}
+            {/* Product List */}
             {loading ? (
-                <p>Loading products...</p>
+                <p className="text-center">Loading products...</p>
             ) : error ? (
-                <p className="text-red-500">{error}</p>
+                <p className="text-center text-red-500">{error}</p>
+            ) : sorted.length === 0 ? (
+                <p className="text-center text-gray-500">No products found in this category.</p>
             ) : (
                 <>
-                    {/* Product Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {paginated.map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product._id} product={product} />
                         ))}
                     </div>
 
