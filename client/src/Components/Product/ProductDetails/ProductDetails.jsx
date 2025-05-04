@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const ProductDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const [product, setProduct] = useState(null);
     const [selectedImage, setSelectedImage] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
@@ -19,6 +22,36 @@ const ProductDetails = () => {
             })
             .catch(err => console.error("Failed to load product", err));
     }, [id]);
+
+    const handleAddToCart = () => {
+        if (!user) {
+            alert("Please login first.");
+            return navigate("/login");
+        }
+
+        const cartItem = {
+            userEmail: user.email,
+            productId: product._id,
+            title: product.title,
+            price: product.price,
+            image: product.images[0],
+            size: selectedSize,
+            quantity,
+        };
+
+        fetch("http://localhost:5000/cart", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(cartItem),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    navigate("/cart");
+                }
+            })
+            .catch(err => console.error("Add to cart failed:", err));
+    };
 
     if (!product) return <div className="p-6">Loading product details...</div>;
 
@@ -79,7 +112,12 @@ const ProductDetails = () => {
                             onChange={(e) => setQuantity(Number(e.target.value))}
                             className="w-16 border px-2 py-1 rounded"
                         />
-                        <button className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800">Add to Cart</button>
+                        <button
+                            onClick={handleAddToCart}
+                            className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800"
+                        >
+                            Add to Cart
+                        </button>
                         <button className="border px-6 py-2 rounded hover:bg-gray-100">Buy It Now</button>
                     </div>
 

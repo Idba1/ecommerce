@@ -9,6 +9,7 @@ import Clothe from "../Components/Product/Clothe/Clothe";
 import CategoryPage from "../Components/Product/CategoryPage/CategoryPage";
 import ProductDetails from "../Components/Product/ProductDetails/ProductDetails";
 import AdminAddProduct from "../Components/Product/AdminAddProduct/AdminAddProduct";
+import CartPage from "../Components/Product/CartPage/CartPage";
 
 const Routes = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const Routes = createBrowserRouter([
                 {
                     path: '/add-product',
                     element: <AdminAddProduct />
+                },
+                {
+                    path: '/cart',
+                    element: <CartPage />
                 },
             ]
     }
