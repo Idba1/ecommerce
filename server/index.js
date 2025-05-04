@@ -18,6 +18,23 @@ async function run() {
     try {
         await client.connect();
         const collection = client.db("e-24").collection("collection");
+        const cartCollection = client.db("e-24").collection("cart");
+        
+
+        // Get all cart items by user email
+        app.get("/cart", async (req, res) => {
+            const email = req.query.email;
+            const result = await cartCollection.find({ userEmail: email }).toArray();
+            res.send(result);
+        });
+
+        // Add an item to cart
+        app.post("/cart", async (req, res) => {
+            const item = req.body;
+            const result = await cartCollection.insertOne(item);
+            res.send(result);
+        });
+
 
         app.get('/collection', async (req, res) => {
             const result = await collection.find().toArray();
