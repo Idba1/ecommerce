@@ -23,6 +23,7 @@ const Home = () => {
       {/* <Nav></Nav> */}
       <HeroSection></HeroSection>
       <ProductListing></ProductListing>
+      <Footer></Footer>
     </div>
   )
 }
