@@ -5,6 +5,7 @@ import Registration from "../Pages/Authentication/Register";
 import Login from "../Pages/Authentication/LogIn";
 import Home from "../Components/Home/Home/Home";
 import ProductListing from "../Components/Product/ProductListing/ProductListing";
+import Clothe from "../Components/Product/Clothe/Clothe";
 
 const Routes = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const Routes = createBrowserRouter([
                 {
                     path: '/shop',
                     element: <ProductListing></ProductListing>,
+                },
+                {
+                    path: '/clothes',
+                    element: <Clothe></Clothe>,
                 },
             ]
     }
