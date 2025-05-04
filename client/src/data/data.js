@@ -39,7 +39,8 @@
                 "img": "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg",
                 "desc": "Crafted with premium elements."
             }
-        ]
+        ],
+        "category": "accessories"
     },
     {
         "title": "Urban Step Sneakers",
@@ -71,7 +72,8 @@
                 "img": "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg",
                 "desc": "Made for walking."
             }
-        ]
+        ],
+        "category": "shoes"
     },
     {
         "title": "ChronoMaster Watch",
@@ -103,7 +105,8 @@
                 "img": "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
                 "desc": "For all occasions."
             }
-        ]
+        ],
+        "category": "watches"
     },
     {
         "title": "Arctic Shield Jacket",
@@ -135,7 +138,8 @@
                 "img": "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg",
                 "desc": "Takes on the harshest climates."
             }
-        ]
+        ],
+        "category": "winter"
     },
     {
         "title": "Luxury Hoodie",
@@ -167,7 +171,8 @@
                 "img": "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
                 "desc": "Designed for chill days."
             }
-        ]
+        ],
+        "category": "clothes"
     },
     {
         "title": "Visionary Frames",
@@ -199,7 +204,8 @@
                 "img": "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
                 "desc": "Reduce eye fatigue."
             }
-        ]
+        ],
+        "category": "eyeglasses"
     },
     {
         "title": "Winter Beanie",
@@ -231,7 +237,8 @@
                 "img": "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
                 "desc": "Warmth that travels."
             }
-        ]
+        ],
+        "category": "winter"
     },
     {
         "title": "Smart Buds Pro",
@@ -263,6 +270,7 @@
                 "img": "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg",
                 "desc": "Feel every beat."
             }
-        ]
+        ],
+        "category": "electronics"
     }
 ]
