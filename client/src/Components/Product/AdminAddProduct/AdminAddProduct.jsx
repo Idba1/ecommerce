@@ -1,171 +1,165 @@
+// AdminProductForm.jsx
 import { useState } from "react";
 import axios from "axios";
 
-const AdminAddProduct = () => {
+const AdminProductForm = () => {
     const [formData, setFormData] = useState({
         title: "",
         price: "",
         oldPrice: "",
         rating: 0,
-        category: "",
-        sizes: [],
-        images: [],
+        sizes: "",
         description: "",
-        features: [""],
-        tabs: {
-            description: "",
-            shipping: "",
-        },
-        highlights: [{ title: "", img: "", desc: "" }],
+        features: "",
+        tabDescription: "",
+        tabShipping: "",
+        highlights: [
+            { title: "", img: "", desc: "" },
+            { title: "", img: "", desc: "" },
+            { title: "", img: "", desc: "" },
+        ],
+        category: "clothes",
     });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        if (name.includes("tabs.")) {
-            const field = name.split(".")[1];
-            setFormData((prev) => ({
-                ...prev,
-                tabs: { ...prev.tabs, [field]: value },
-            }));
-        } else {
-            setFormData((prev) => ({
-                ...prev,
-                [name]: value,
-            }));
+    const [images, setImages] = useState([]);
+    const [highlightImages, setHighlightImages] = useState([]);
+    const [uploading, setUploading] = useState(false);
+
+    const handleImageUpload = async (imageFiles) => {
+        const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
+        const urls = [];
+
+        for (const img of imageFiles) {
+            const form = new FormData();
+            form.append("image", img);
+            const res = await axios.post(
+                `https://api.imgbb.com/1/upload?key=${apiKey}`,
+                form
+            );
+            urls.push(res.data.data.url);
         }
-    };
 
-    const handleArrayChange = (name, index, value, subField = null) => {
-        setFormData((prev) => {
-            const updated = [...prev[name]];
-            if (subField) {
-                updated[index][subField] = value;
-            } else {
-                updated[index] = value;
-            }
-            return { ...prev, [name]: updated };
-        });
-    };
-
-    const addArrayField = (name, defaultValue) => {
-        setFormData((prev) => ({
-            ...prev,
-            [name]: [...prev[name], defaultValue],
-        }));
-    };
-
-    const removeArrayField = (name, index) => {
-        setFormData((prev) => {
-            const updated = [...prev[name]];
-            updated.splice(index, 1);
-            return { ...prev, [name]: updated };
-        });
+        return urls;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (images.length < 4 || images.length > 6) {
+            return alert("Please upload 4 to 6 product images.");
+        }
+
+        if (highlightImages.length !== 3) {
+            return alert("Please upload exactly 3 highlight images.");
+        }
+
         try {
-            const productData = {
-                ...formData,
+            setUploading(true);
+            const productImageUrls = await handleImageUpload(images);
+            const highlightImageUrls = await handleImageUpload(highlightImages);
+
+            const highlights = formData.highlights.map((highlight, index) => ({
+                ...highlight,
+                img: highlightImageUrls[index],
+            }));
+
+            const product = {
+                title: formData.title,
                 price: Number(formData.price),
                 oldPrice: Number(formData.oldPrice),
                 rating: Number(formData.rating),
-            };
-            await axios.post("http://localhost:5000/collection", productData);
-            alert("Product uploaded successfully!");
-            setFormData({
-                title: "",
-                price: "",
-                oldPrice: "",
-                rating: 0,
-                category: "",
-                sizes: [],
-                images: [],
-                description: "",
-                features: [""],
+                sizes: formData.sizes.split(",").map((s) => s.trim()),
+                images: productImageUrls,
+                description: formData.description,
+                features: formData.features.split("\n").map((f) => f.trim()),
                 tabs: {
-                    description: "",
-                    shipping: "",
+                    description: formData.tabDescription,
+                    shipping: formData.tabShipping,
                 },
-                highlights: [{ title: "", img: "", desc: "" }],
-            });
-        } catch (err) {
-            console.error(err);
-            alert("Error uploading product.");
+                highlights,
+                category: formData.category,
+            };
+
+            await axios.post("http://localhost:5000/collection", product);
+            alert("Product posted successfully!");
+        } catch (error) {
+            console.error(error);
+            alert("Failed to upload product.");
+        } finally {
+            setUploading(false);
         }
     };
 
+    const handleHighlightChange = (index, field, value) => {
+        const newHighlights = [...formData.highlights];
+        newHighlights[index][field] = value;
+        setFormData({ ...formData, highlights: newHighlights });
+    };
+
     return (
-        <div className="max-w-4xl mx-auto px-4 py-10">
-            <h2 className="text-2xl font-bold mb-6">Add New Product</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="max-w-4xl mx-auto p-6 bg-white shadow rounded-lg">
+            <h2 className="text-2xl font-bold mb-4">Add New Product</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <input type="text" required placeholder="Title" className="w-full p-2 border" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
+                <input type="number" required placeholder="Price" className="w-full p-2 border" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+                <input type="number" required placeholder="Old Price" className="w-full p-2 border" value={formData.oldPrice} onChange={(e) => setFormData({ ...formData, oldPrice: e.target.value })} />
+                <input type="number" required placeholder="Rating" className="w-full p-2 border" value={formData.rating} onChange={(e) => setFormData({ ...formData, rating: e.target.value })} />
+                <input type="text" required placeholder="Sizes (comma separated)" className="w-full p-2 border" value={formData.sizes} onChange={(e) => setFormData({ ...formData, sizes: e.target.value })} />
+                <textarea required placeholder="Description" className="w-full p-2 border" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
+                <textarea required placeholder="Features (one per line)" className="w-full p-2 border" value={formData.features} onChange={(e) => setFormData({ ...formData, features: e.target.value })} />
+                <textarea required placeholder="Tab Description" className="w-full p-2 border" value={formData.tabDescription} onChange={(e) => setFormData({ ...formData, tabDescription: e.target.value })} />
+                <textarea required placeholder="Tab Shipping" className="w-full p-2 border" value={formData.tabShipping} onChange={(e) => setFormData({ ...formData, tabShipping: e.target.value })} />
 
-                {/* Basic Info */}
-                <input name="title" placeholder="Title" value={formData.title} onChange={handleInputChange} className="w-full border p-2 rounded" />
-                <input name="price" placeholder="Price" value={formData.price} onChange={handleInputChange} type="number" className="w-full border p-2 rounded" />
-                <input name="oldPrice" placeholder="Old Price" value={formData.oldPrice} onChange={handleInputChange} type="number" className="w-full border p-2 rounded" />
-                <input name="rating" placeholder="Rating" value={formData.rating} onChange={handleInputChange} type="number" className="w-full border p-2 rounded" />
-                <input name="category" placeholder="Category (e.g., clothes, shoes)" value={formData.category} onChange={handleInputChange} className="w-full border p-2 rounded" />
-                <textarea name="description" placeholder="Description" value={formData.description} onChange={handleInputChange} className="w-full border p-2 rounded" />
+                <select className="w-full p-2 border" value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
+                    <option value="clothes">Clothes</option>
+                    <option value="shoes">Shoes</option>
+                    <option value="watches">Watches</option>
+                    <option value="winter">Winter</option>
+                    <option value="eyeglasses">Eyeglasses</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="accessories">Accessories</option>
+                </select>
 
-                {/* Sizes */}
-                <div>
-                    <h4 className="font-semibold mb-1">Sizes</h4>
-                    {formData.sizes.map((s, i) => (
-                        <div key={i} className="flex gap-2 mb-2">
-                            <input value={s} onChange={(e) => handleArrayChange("sizes", i, e.target.value)} className="flex-1 border p-1 rounded" />
-                            <button type="button" onClick={() => removeArrayField("sizes", i)} className="text-red-600">Remove</button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={() => addArrayField("sizes", "")} className="text-blue-600">+ Add Size</button>
-                </div>
+                <label className="block">Product Images (4–6):</label>
+                {/* Product Images */}
+                <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) =>
+                        setImages((prev) => [...prev, ...Array.from(e.target.files)])
+                    }
+                    className="w-full border p-2"
+                />
 
-                {/* Images */}
-                <div>
-                    <h4 className="font-semibold mb-1">Image URLs (hosted on imgbb)</h4>
-                    {formData.images.map((img, i) => (
-                        <div key={i} className="flex gap-2 mb-2">
-                            <input value={img} onChange={(e) => handleArrayChange("images", i, e.target.value)} className="flex-1 border p-1 rounded" />
-                            <button type="button" onClick={() => removeArrayField("images", i)} className="text-red-600">Remove</button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={() => addArrayField("images", "")} className="text-blue-600">+ Add Image</button>
-                </div>
 
-                {/* Features */}
-                <div>
-                    <h4 className="font-semibold mb-1">Features</h4>
-                    {formData.features.map((f, i) => (
-                        <div key={i} className="flex gap-2 mb-2">
-                            <input value={f} onChange={(e) => handleArrayChange("features", i, e.target.value)} className="flex-1 border p-1 rounded" />
-                            <button type="button" onClick={() => removeArrayField("features", i)} className="text-red-600">Remove</button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={() => addArrayField("features", "")} className="text-blue-600">+ Add Feature</button>
-                </div>
+                <label className="block">Highlights (3 items):</label>
+                {formData.highlights.map((h, index) => (
+                    <div key={index} className="border p-2 space-y-1">
+                        <input type="text" placeholder="Highlight Title" value={h.title} className="w-full p-1 border" onChange={(e) => handleHighlightChange(index, "title", e.target.value)} />
+                        <input type="text" placeholder="Highlight Description" value={h.desc} className="w-full p-1 border" onChange={(e) => handleHighlightChange(index, "desc", e.target.value)} />
+                    </div>
+                ))}
 
-                {/* Tabs */}
-                <input name="tabs.description" placeholder="Tab: Description" value={formData.tabs.description} onChange={handleInputChange} className="w-full border p-2 rounded" />
-                <input name="tabs.shipping" placeholder="Tab: Shipping" value={formData.tabs.shipping} onChange={handleInputChange} className="w-full border p-2 rounded" />
+                <label className="block">Highlight Images (3):</label>
 
-                {/* Highlights */}
-                <div>
-                    <h4 className="font-semibold mb-1">Highlights</h4>
-                    {formData.highlights.map((h, i) => (
-                        <div key={i} className="space-y-2 mb-4">
-                            <input value={h.title} placeholder="Title" onChange={(e) => handleArrayChange("highlights", i, e.target.value, "title")} className="w-full border p-1 rounded" />
-                            <input value={h.img} placeholder="Image URL" onChange={(e) => handleArrayChange("highlights", i, e.target.value, "img")} className="w-full border p-1 rounded" />
-                            <input value={h.desc} placeholder="Description" onChange={(e) => handleArrayChange("highlights", i, e.target.value, "desc")} className="w-full border p-1 rounded" />
-                            <button type="button" onClick={() => removeArrayField("highlights", i)} className="text-red-600">Remove</button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={() => addArrayField("highlights", { title: "", img: "", desc: "" })} className="text-blue-600">+ Add Highlight</button>
-                </div>
+                {/* Highlight Images */}
+                <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) =>
+                        setHighlightImages((prev) => [...prev, ...Array.from(e.target.files)])
+                    }
+                    className="w-full border p-2"
+                />
 
-                <button type="submit" className="bg-black text-white px-4 py-2 rounded">Submit Product</button>
+                <button type="submit" className="w-full py-2 bg-blue-600 text-white rounded" disabled={uploading}>
+                    {uploading ? "Uploading..." : "Submit Product"}
+                </button>
             </form>
         </div>
     );
 };
 
-export default AdminAddProduct;
+export default AdminProductForm;
