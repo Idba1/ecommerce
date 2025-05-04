@@ -8,6 +8,7 @@ import ProductListing from "../Components/Product/ProductListing/ProductListing"
 import Clothe from "../Components/Product/Clothe/Clothe";
 import CategoryPage from "../Components/Product/CategoryPage/CategoryPage";
 import ProductDetails from "../Components/Product/ProductDetails/ProductDetails";
+import AdminAddProduct from "../Components/Product/AdminAddProduct/AdminAddProduct";
 
 const Routes = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const Routes = createBrowserRouter([
                 {
                     path: '/product/:id',
                     element: <ProductDetails />
+                },
+                {
+                    path: '/add-product',
+                    element: <AdminAddProduct />
                 },
             ]
     }
