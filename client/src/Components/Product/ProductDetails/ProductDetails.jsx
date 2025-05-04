@@ -1,41 +1,26 @@
-import { useState } from "react";
-
-const product = {
-    title: "Pure Bliss",
-    price: 50.0,
-    oldPrice: 70.0,
-    rating: 0,
-    sizes: ["25ml", "50ml", "100ml", "45ml"],
-    images: [
-        "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
-        "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
-        "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
-        "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
-        "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg"
-    ],
-    description: `Temporibus ducimus et exercitationem et occaecati consequatur. Voluptatem fugiat est incidunt aut.`,
-    features: [
-        "Elegant fragrance experience suitable for any occasion",
-        "Infused natural ingredients – fresh and long-lasting",
-        "Unique minimal bottle design",
-        "Perfect for gifting"
-    ],
-    tabs: {
-        description: `This fragrance is a harmonious blend of floral elegance and soft woody undertones. Crafted for the modern individual.`,
-        shipping: `Free worldwide shipping on orders over $50. Estimated delivery: 5-7 business days.`
-    },
-    highlights: [
-        { title: "Authentic Product", img: "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg", desc: "Ensures durability and originality." },
-        { title: "Fashion Minimal", img: "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg", desc: "Perfect for any aesthetic shelf." },
-        { title: "Luxurious", img: "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg", desc: "Crafted with premium elements." }
-    ]
-};
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const ProductDetails = () => {
-    const [selectedImage, setSelectedImage] = useState(product.images[0]);
-    const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+    const { id } = useParams();
+    const [product, setProduct] = useState(null);
+    const [selectedImage, setSelectedImage] = useState("");
+    const [selectedSize, setSelectedSize] = useState("");
     const [quantity, setQuantity] = useState(1);
     const [activeTab, setActiveTab] = useState("description");
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/collection/${id}`)
+            .then(res => {
+                setProduct(res.data);
+                setSelectedImage(res.data.images?.[0] || "");
+                setSelectedSize(res.data.sizes?.[0] || "");
+            })
+            .catch(err => console.error("Failed to load product", err));
+    }, [id]);
+
+    if (!product) return <div className="p-6">Loading product details...</div>;
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -62,8 +47,12 @@ const ProductDetails = () => {
                     <h1 className="text-3xl font-bold">{product.title}</h1>
                     <div className="flex items-center gap-4">
                         <span className="text-red-600 text-xl font-semibold">${product.price.toFixed(2)}</span>
-                        <span className="line-through text-gray-500">${product.oldPrice.toFixed(2)}</span>
-                        <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm">Sale</span>
+                        {product.oldPrice > product.price && (
+                            <>
+                                <span className="line-through text-gray-500">${product.oldPrice.toFixed(2)}</span>
+                                <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm">Sale</span>
+                            </>
+                        )}
                     </div>
 
                     <p>{product.description}</p>
@@ -118,7 +107,7 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="mt-4 text-gray-700">
-                    {activeTab === "description" ? product.tabs.description : product.tabs.shipping}
+                    {activeTab === "description" ? product.tabs?.description : product.tabs?.shipping}
                 </div>
             </div>
 
@@ -130,12 +119,14 @@ const ProductDetails = () => {
                         <li key={idx}>{f}</li>
                     ))}
                 </ul>
-                <img src="https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg" alt="Fragrance beach" className="w-full mt-6 rounded shadow" />
+                {product.images?.[0] && (
+                    <img src={product.images?.[0]} alt="Fragrance" className="w-full mt-6 rounded shadow" />
+                )}
             </div>
 
             {/* Highlights */}
             <div className="mt-12 grid md:grid-cols-3 gap-6">
-                {product.highlights.map((item, idx) => (
+                {product.highlights?.map((item, idx) => (
                     <div key={idx} className="space-y-2">
                         <img src={item.img} alt={item.title} className="w-full rounded" />
                         <h3 className="font-semibold text-lg">{item.title}</h3>
