@@ -7,11 +7,11 @@ const Footer = () => {
             <div className="container mx-auto px-4">
                 {/* Social Media Icons */}
                 <div className="flex justify-center space-x-4 mb-4">
-                    <FaFacebookF className="text-xl hover:text-blue-600 cursor-pointer" />
-                    <FaInstagram className="text-xl hover:text-pink-600 cursor-pointer" />
-                    <FaYoutube className="text-xl hover:text-red-600 cursor-pointer" />
-                    <FaLinkedinIn className="text-xl hover:text-blue-700 cursor-pointer" />
-                    <FaTiktok className="text-xl hover:text-black cursor-pointer" />
+                    <FaFacebookF className="text-xl text-yellow-500 hover:text-blue-700 cursor-pointer" />
+                    <FaInstagram className="text-xl text-yellow-500 hover:text-indigo-500 cursor-pointer" />
+                    <FaYoutube className="text-xl text-yellow-500 hover:text-red-700 cursor-pointer" />
+                    <FaLinkedinIn className="text-xl text-yellow-500 hover:text-blue-800 cursor-pointer" />
+                    <FaTiktok className="text-xl text-yellow-500 hover:text-black cursor-pointer" />
                 </div>
 
                 {/* Slogan */}
@@ -58,15 +58,9 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Payment Logos */}
-                <div className="flex justify-center items-center space-x-6 mb-4">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/BKash_Logo.png" alt="bKash" className="h-6" />
-                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Dutch-Bangla_Bank_Logo.svg/512px-Dutch-Bangla_Bank_Logo.svg.png" alt="DBBL" className="h-6" />
-                </div>
-
                 {/* Copyright */}
                 <p className="text-center text-xs text-gray-500">
-                    © 2025 E24-Wholesale – All Rights Reserved
+                    © 2025 E24.com.bd – All Rights Reserved
                 </p>
             </div>
         </footer>

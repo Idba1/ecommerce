@@ -17,7 +17,12 @@ const HeroSection = () => {
                         Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
                         quasi. In deleniti eaque aut repudiandae et a id nisi.
                     </p>
-                    <button className="btn btn-primary">Get Started</button>
+                    <a
+                        href="/"
+                        className="bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition"
+                    >
+                        Explore Deals
+                    </a>
                 </div>
             </div>
         </div>

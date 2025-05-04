@@ -2,7 +2,7 @@ import React from 'react';
 
 const Promotions = () => {
     return (
-        <section className="bg-yellow-100 py-12">
+        <section className="bg-yellow-100 my-16 py-12">
             <div className="max-w-6xl mx-auto px-4 text-center">
                 <h2 className="text-3xl font-bold mb-6 text-yellow-900">🔥 Special Offers Just for You!</h2>
                 <p className="text-lg text-yellow-800 mb-6">

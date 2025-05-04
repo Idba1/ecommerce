@@ -23,7 +23,7 @@ const Sidebar = () => {
                             `flex items-center space-x-3 p-2 rounded hover:bg-gray-100 transition ${isActive ? "bg-gray-200 font-semibold" : ""}`
                         }
                     >
-                        <span className="text-lg">{item.icon}</span>
+                        <span className="text-lg text-yellow-600">{item.icon}</span>
                         <span>{item.name}</span>
                     </NavLink>
                 ))}
