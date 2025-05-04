@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { ObjectId } = require('mongodb');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -44,6 +45,24 @@ async function run() {
             const result = await collection.find().toArray();
             res.send(result);
         });
+
+        app.get('/collection/:id', async (req, res) => {
+            try {
+                const { id } = req.params;
+                const product = await collection.findOne({ _id: new ObjectId(id) });
+        
+                if (!product) {
+                    return res.status(404).json({ error: "Product not found" });
+                }
+        
+                res.json(product);
+            } catch (error) {
+                console.error("Error fetching product:", error);
+                res.status(500).json({ error: "Server error", details: error.message });
+            }
+            
+        });
+        
 
     } catch (error) {
         console.error("MongoDB connection failed:", error);
