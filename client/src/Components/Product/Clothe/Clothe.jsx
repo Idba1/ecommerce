@@ -8,4 +8,4 @@ const Clothe = () => {
   )
 }
 
-export default Clothe
+export default Clothe;

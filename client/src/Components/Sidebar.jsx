@@ -3,13 +3,14 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
     const menuItems = [
-        { name: "Clothes", icon: <FaTshirt />, path: "/clothes" },
-        { name: "Shoes", icon: <FaShoePrints />, path: "/shoes" },
-        { name: "Watches", icon: <FaClock />, path: "/watches" },
-        { name: "Winter Wear", icon: <FaSnowflake />, path: "/winter" },
-        { name: "Eyeglasses", icon: <FaGlasses />, path: "/eyeglasses" },
-        { name: "Electronics", icon: <FaTabletAlt />, path: "/electronics" },
+        { name: "Clothes", icon: <FaTshirt />, path: "/category/clothes" },
+        { name: "Shoes", icon: <FaShoePrints />, path: "/category/shoes" },
+        { name: "Watches", icon: <FaClock />, path: "/category/watches" },
+        { name: "Winter Wear", icon: <FaSnowflake />, path: "/category/winter" },
+        { name: "Eyeglasses", icon: <FaGlasses />, path: "/category/eyeglasses" },
+        { name: "Electronics", icon: <FaTabletAlt />, path: "/category/electronics" },
     ];
+
 
     return (
         <div className="h-screen flex flex-col bg-white border-r p-4">

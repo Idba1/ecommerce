@@ -6,6 +6,7 @@ import Login from "../Pages/Authentication/LogIn";
 import Home from "../Components/Home/Home/Home";
 import ProductListing from "../Components/Product/ProductListing/ProductListing";
 import Clothe from "../Components/Product/Clothe/Clothe";
+import CategoryPage from "../Components/Product/CategoryPage/CategoryPage";
 
 const Routes = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const Routes = createBrowserRouter([
                 {
                     path: '/clothes',
                     element: <Clothe></Clothe>,
+                },
+                {
+                    path: '/category/:categoryName',
+                    element: <CategoryPage />
                 },
             ]
     }
