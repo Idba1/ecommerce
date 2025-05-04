@@ -1,18 +1,31 @@
 import { FaShoppingCart, FaGift, FaUser, FaSearch, FaCamera } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Nav = () => {
     const { user, logOut } = useContext(AuthContext);
     const [open, setOpen] = useState(false);
+    const [cartCount, setCartCount] = useState(0);
 
     const handleLogout = () => {
         logOut()
             .then(() => setOpen(false))
             .catch((err) => console.error(err));
     };
+
+    useEffect(() => {
+        if (user?.email) {
+            fetch(`http://localhost:5000/cart?email=${user.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    const total = data.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                    setCartCount(total);
+                })
+                .catch(err => console.error("Failed to fetch cart", err));
+        }
+    }, [user]);
 
     return (
         <nav className="w-full bg-[#F5B246] py-2 px-4 flex items-center justify-between flex-wrap gap-2 sm:gap-0">
@@ -41,7 +54,11 @@ const Nav = () => {
             <div className="flex gap-4 text-white text-lg items-center mt-2 sm:mt-0 relative">
                 <Link to="/cart" className="relative">
                     <FaShoppingCart />
-                    <span className="absolute -top-2 -right-2 text-[10px] bg-white text-black rounded-full px-1">0</span>
+                    {cartCount > 0 && (
+                        <span className="absolute -top-2 -right-2 text-[10px] bg-white text-black rounded-full px-1">
+                            {cartCount}
+                        </span>
+                    )}
                 </Link>
 
                 <FaGift />
