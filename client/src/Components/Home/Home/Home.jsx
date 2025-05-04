@@ -22,6 +22,7 @@ const Home = () => {
       {/* <Footer></Footer> */}
       {/* <Nav></Nav> */}
       <HeroSection></HeroSection>
+      <ProductListing></ProductListing>
     </div>
   )
 }

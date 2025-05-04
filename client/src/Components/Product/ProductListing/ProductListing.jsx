@@ -1,18 +1,26 @@
-// src/pages/ProductListing.jsx
 import { useState } from "react";
 import { products as mockProducts } from "../../../data/mockProducts";
 import ProductCard from "../ProductCard/ProductCard";
 
-const categories = ["All", "Electronics", "Fashion"];
+const categories = [
+    "All",
+    "clothes",
+    "shoes",
+    "watches",
+    "winter",
+    "eyeglasses",
+    "electronics"
+];
+
 const sortOptions = [
     { value: "price-asc", label: "Price: Low to High" },
     { value: "price-desc", label: "Price: High to Low" },
-    { value: "popularity", label: "Popularity" }
+    { value: "rating", label: "Top Rated" }
 ];
 
 const ProductListing = () => {
     const [category, setCategory] = useState("All");
-    const [sortBy, setSortBy] = useState("popularity");
+    const [sortBy, setSortBy] = useState("rating");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
 
@@ -21,9 +29,9 @@ const ProductListing = () => {
         : mockProducts.filter((p) => p.category === category);
 
     const sorted = [...filtered].sort((a, b) => {
-        if (sortBy === "price-asc") return a.price - b.price;
-        if (sortBy === "price-desc") return b.price - a.price;
-        if (sortBy === "popularity") return b.popularity - a.popularity;
+        if (sortBy === "price-asc") return a.discountPrice - b.discountPrice;
+        if (sortBy === "price-desc") return b.discountPrice - a.discountPrice;
+        if (sortBy === "rating") return b.rating - a.rating;
         return 0;
     });
 
@@ -44,7 +52,7 @@ const ProductListing = () => {
                         className="border rounded px-3 py-2"
                     >
                         {categories.map((cat) => (
-                            <option key={cat}>{cat}</option>
+                            <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
                         ))}
                     </select>
                 </div>
@@ -64,7 +72,7 @@ const ProductListing = () => {
             </div>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {paginated.map((product) => (
                     <ProductCard key={product.id} product={product} />
                 ))}

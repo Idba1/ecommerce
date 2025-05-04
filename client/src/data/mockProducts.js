@@ -1,83 +1,204 @@
 // src/data/mockProducts.js
 export const products = [
     {
-        id: 1,
-        name: "Smart Watch",
-        price: 120,
-        category: "Electronics",
-        image: "https://i.ibb.co.com/d4Lk5Znq/470186379-599278749257632-8523442000453778645-n.jpg",
-        popularity: 90
+        "id": "1",
+        "name": "Kids Summer Dress",
+        "images": [
+            "/images/dress1a.jpg",
+            "/images/dress1b.jpg",
+            "/images/dress1c.jpg"
+        ],
+        "rating": 4.5,
+        "brand": "MiniStyle",
+        "category": "clothes",
+        "price": 29.99,
+        "discountPrice": 24.99,
+        "sizes": ["2T", "3T", "4T", "5T"],
+        "colors": ["Pink", "Yellow", "Blue"],
+        "comments": [
+            "Very cute and comfortable!",
+            "My daughter loved it!",
+            "Great quality fabric."
+        ]
     },
     {
-        id: 2,
-        name: "Wireless Headphones",
-        price: 80,
-        category: "Electronics",
-        image: "https://i.ibb.co.com/d4Lk5Znq/470186379-599278749257632-8523442000453778645-n.jpg",
-        popularity: 120
+        "id": "2",
+        "name": "Boys Running Shoes",
+        "images": [
+            "/images/shoes1a.jpg",
+            "/images/shoes1b.jpg"
+        ],
+        "rating": 4.2,
+        "brand": "RunMate",
+        "category": "shoes",
+        "price": 39.99,
+        "discountPrice": 32.99,
+        "sizes": ["28", "29", "30", "31"],
+        "colors": ["Red", "Black"],
+        "comments": [
+            "Perfect fit for school!",
+            "Good grip and stylish.",
+            "My son wears them every day."
+        ]
     },
     {
-        id: 3,
-        name: "Men's Sneakers",
-        price: 60,
-        category: "Fashion",
-        image: "https://i.ibb.co.com/FbBKxvTG/470552180-599278562590984-7734472273460560318-n.jpg",
-        popularity: 75
+        "id": "3",
+        "name": "Smart Digital Watch for Kids",
+        "images": [
+            "/images/watch1a.jpg",
+            "/images/watch1b.jpg"
+        ],
+        "rating": 4.8,
+        "brand": "TimeBuddy",
+        "category": "watches",
+        "price": 49.99,
+        "discountPrice": 39.99,
+        "sizes": ["One Size"],
+        "colors": ["Blue", "Green", "Pink"],
+        "comments": [
+            "Love the camera feature!",
+            "Battery lasts long.",
+            "Easy for kids to use."
+        ]
     },
     {
-        id: 4,
-        name: "Bluetooth Speaker",
-        price: 45,
-        category: "Electronics",
-        image: "https://i.ibb.co.com/B5xBr9jQ/470685073-599278752590965-214457294649257290-n.jpg",
-        popularity: 95
+        "id": "4",
+        "name": "Kids Winter Jacket",
+        "images": [
+            "/images/winter1a.jpg",
+            "/images/winter1b.jpg"
+        ],
+        "rating": 4.7,
+        "brand": "WarmNest",
+        "category": "winter",
+        "price": 69.99,
+        "discountPrice": 54.99,
+        "sizes": ["S", "M", "L"],
+        "colors": ["Navy", "Red"],
+        "comments": [
+            "Keeps warm even in snow!",
+            "Very soft and cozy.",
+            "Zipper quality is great."
+        ]
     },
     {
-        id: 5,
-        name: "Women's Handbag",
-        price: 70,
-        category: "Fashion",
-        image: "https://i.ibb.co.com/q3Wk8x58/474459949-622575626950991-4253433335511362399-n.jpg",
-        popularity: 85
+        "id": "5",
+        "name": "Stylish Kid Glasses",
+        "images": [
+            "/images/eyeglasses1a.jpg",
+            "/images/eyeglasses1b.jpg"
+        ],
+        "rating": 4.4,
+        "brand": "EyeBright",
+        "category": "eyeglasses",
+        "price": 25.00,
+        "discountPrice": 19.99,
+        "sizes": ["One Size"],
+        "colors": ["Black", "Purple"],
+        "comments": [
+            "Looks super cute!",
+            "Very lightweight and flexible.",
+            "Affordable and durable."
+        ]
     },
     {
-        id: 6,
-        name: "Fitness Tracker",
-        price: 55,
-        category: "Electronics",
-        image: "https://i.ibb.co.com/G4xjxnBh/474974293-627632426445311-4431891640615878932-n.jpg",
-        popularity: 110
+        "id": "6",
+        "name": "Wireless Kids Headphones",
+        "images": [
+            "/images/electronics1a.jpg",
+            "/images/electronics1b.jpg"
+        ],
+        "rating": 4.6,
+        "brand": "KidAudio",
+        "category": "electronics",
+        "price": 45.00,
+        "discountPrice": 35.00,
+        "sizes": ["Adjustable"],
+        "colors": ["Blue", "Pink"],
+        "comments": [
+            "Volume limiting works well.",
+            "My kid loves the design!",
+            "Battery life is great."
+        ]
     },
     {
-        id: 7,
-        name: "Gaming Mouse",
-        price: 35,
-        category: "Electronics",
-        image: "https://i.ibb.co.com/TMZLsrLg/475043366-627632483111972-7303468744448980140-n.jpg",
-        popularity: 60
+        "id": "7",
+        "name": "Girls Party Dress",
+        "images": [
+            "/images/dress2a.jpg",
+            "/images/dress2b.jpg"
+        ],
+        "rating": 4.3,
+        "brand": "TwinkleTots",
+        "category": "clothes",
+        "price": 59.00,
+        "discountPrice": 44.99,
+        "sizes": ["4T", "5T", "6T"],
+        "colors": ["Lavender", "White"],
+        "comments": [
+            "Perfect for birthdays.",
+            "Looks exactly like the picture.",
+            "Fast delivery too!"
+        ]
     },
     {
-        id: 8,
-        name: "Casual T-Shirt",
-        price: 25,
-        category: "Fashion",
-        image: "https://i.ibb.co.com/DfwBhYyj/475043366-627632483111972-7303468744448980140-n1.jpg",
-        popularity: 100
+        "id": "8",
+        "name": "Winter Snow Boots",
+        "images": [
+            "/images/shoes2a.jpg",
+            "/images/shoes2b.jpg"
+        ],
+        "rating": 4.9,
+        "brand": "SnowSteps",
+        "category": "shoes",
+        "price": 79.99,
+        "discountPrice": 62.99,
+        "sizes": ["30", "31", "32", "33"],
+        "colors": ["Gray", "Blue"],
+        "comments": [
+            "Waterproof and warm!",
+            "Perfect for Canadian winters.",
+            "Very durable soles."
+        ]
     },
     {
-        id: 9,
-        name: "Laptop Sleeve",
-        price: 30,
-        category: "Accessories",
-        image: "https://i.ibb.co.com/LzKWPzrt/475074906-627621386446415-1294781210483609798-n.jpg",
-        popularity: 55
+        "id": "9",
+        "name": "Boys Aviator Glasses",
+        "images": [
+            "/images/eyeglasses2a.jpg",
+            "/images/eyeglasses2b.jpg"
+        ],
+        "rating": 4.1,
+        "brand": "VisionMax",
+        "category": "eyeglasses",
+        "price": 29.00,
+        "discountPrice": 22.50,
+        "sizes": ["One Size"],
+        "colors": ["Gold", "Black"],
+        "comments": [
+            "Looks classy!",
+            "Good quality frames.",
+            "My son feels grown-up!"
+        ]
     },
     {
-        id: 10,
-        name: "Portable Charger",
-        price: 40,
-        category: "Electronics",
-        image: "https://i.ibb.co.com/0PcQQCq/475097193-627621393113081-6821731789301013155-n.jpg",
-        popularity: 130
+        "id": "10",
+        "name": "Kid-Friendly Tablet",
+        "images": [
+            "/images/electronics2a.jpg",
+            "/images/electronics2b.jpg"
+        ],
+        "rating": 4.7,
+        "brand": "EduPlay",
+        "category": "electronics",
+        "price": 120.00,
+        "discountPrice": 99.99,
+        "sizes": ["8\" screen"],
+        "colors": ["Blue", "Green"],
+        "comments": [
+            "Comes with lots of games!",
+            "Safe parental controls.",
+            "Great for learning apps."
+        ]
     }
-];
+]
