@@ -10,6 +10,8 @@ import CategoryPage from "../Components/Product/CategoryPage/CategoryPage";
 import ProductDetails from "../Components/Product/ProductDetails/ProductDetails";
 import AdminAddProduct from "../Components/Product/AdminAddProduct/AdminAddProduct";
 import CartPage from "../Components/Product/CartPage/CartPage";
+import AdminDashboard from "../Components/Admin/AdminDashboard/AdminDashboard";
+import AdminMainDashboard from "../Components/Admin/AdminMainDashboard/AdminMainDashboard";
 
 const Routes = createBrowserRouter([
     {
@@ -46,15 +48,29 @@ const Routes = createBrowserRouter([
                     path: '/product/:id',
                     element: <ProductDetails />
                 },
-                {
-                    path: '/add-product',
-                    element: <AdminAddProduct />
-                },
+                // {
+                //     path: '/add-product',
+                //     element: <AdminAddProduct />
+                // },
                 {
                     path: '/cart',
                     element: <CartPage />
                 },
             ]
+    }, {
+        path: '/admin-dashboard',
+        element: <AdminMainDashboard />,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
+            {
+                path: '/admin-dashboard',
+                element: <AdminDashboard />,
+            },
+            {
+                path: 'add-product',
+                element: <AdminAddProduct />,
+            },
+        ]
     }
 ]);
 
