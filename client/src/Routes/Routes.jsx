@@ -77,7 +77,9 @@ const Routes = createBrowserRouter([
                 },
                 {
                     path: '/account',
-                    element: <Account />
+                    element: <ProtectedRoute>
+                        <Account />
+                    </ProtectedRoute>
                 },
                 {
                     path: '/shipping-charge',

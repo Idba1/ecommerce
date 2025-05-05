@@ -5,25 +5,24 @@ import PropTypes from 'prop-types'
 import { AuthContext } from "../../Provider/AuthProvider";
 
 
-const ProtectedRoute = ( {children}) => {
+const ProtectedRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     const location = useLocation();
 
     if (loading) {
         return (
-            <div className="justify-center">
+            <div className="min-h-screen flex justify-center items-center">
                 <Circles
                     height="80"
                     width="80"
                     color="#0E46A3"
                     ariaLabel="circles-loading"
-                    wrapperStyle={{}}
-                    wrapperClass=""
                     visible={true}
                 />
             </div>
-        )
+        );
     }
+
 
 
     if (!user) {
