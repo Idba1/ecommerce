@@ -26,11 +26,13 @@ const CartPage = () => {
             body: JSON.stringify({ quantity }),
         });
         fetchCart();
+        window.dispatchEvent(new Event("cart-updated"));
     };
 
     const removeItem = async (id) => {
         await fetch(`http://localhost:5000/cart/${id}`, { method: "DELETE" });
         fetchCart();
+        window.dispatchEvent(new Event("cart-updated"));
     };
 
     const shipping = 150;

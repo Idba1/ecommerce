@@ -15,7 +15,7 @@ const Nav = () => {
             .catch((err) => console.error(err));
     };
 
-    useEffect(() => {
+    const fetchCartCount = () => {
         if (user?.email) {
             fetch(`http://localhost:5000/cart?email=${user.email}`)
                 .then(res => res.json())
@@ -25,6 +25,20 @@ const Nav = () => {
                 })
                 .catch(err => console.error("Failed to fetch cart", err));
         }
+    };
+
+    useEffect(() => {
+        fetchCartCount();
+
+        const handleCartUpdated = () => {
+            fetchCartCount();
+        };
+
+        window.addEventListener("cart-updated", handleCartUpdated);
+
+        return () => {
+            window.removeEventListener("cart-updated", handleCartUpdated);
+        };
     }, [user]);
 
     return (
@@ -78,10 +92,8 @@ const Nav = () => {
                             />
                         </button>
 
-                        {/* Dropdown */}
                         {open && (
                             <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg z-10">
-                                {/* <Link to="/dashboard" className="block px-4 py-2 hover:bg-gray-100">Dashboard</Link> */}
                                 <Link to="/cart" className="block px-4 py-2 hover:bg-gray-100">My Orders</Link>
                                 <button
                                     onClick={handleLogout}
