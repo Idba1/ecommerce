@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2"; // ✅ Import SweetAlert2
 
 const AdminProductForm = () => {
     const [formData, setFormData] = useState({
@@ -47,11 +48,19 @@ const AdminProductForm = () => {
         e.preventDefault();
 
         if (images.length < 4 || images.length > 6) {
-            return alert("Please upload 4 to 6 product images.");
+            return Swal.fire({
+                icon: "warning",
+                title: "Invalid Image Count",
+                text: "Please upload between 4 to 6 product images.",
+            });
         }
 
         if (highlightImages.length !== 3) {
-            return alert("Please upload exactly 3 highlight images.");
+            return Swal.fire({
+                icon: "warning",
+                title: "Invalid Highlight Count",
+                text: "Please upload exactly 3 highlight images.",
+            });
         }
 
         try {
@@ -82,10 +91,18 @@ const AdminProductForm = () => {
             };
 
             await axios.post("http://localhost:5000/collection", product);
-            alert("Product posted successfully!");
+            Swal.fire({
+                icon: "success",
+                title: "Success!",
+                text: "Product posted successfully!",
+            });
         } catch (error) {
             console.error(error);
-            alert("Failed to upload product.");
+            Swal.fire({
+                icon: "error",
+                title: "Upload Failed",
+                text: "There was a problem uploading the product.",
+            });
         } finally {
             setUploading(false);
         }
@@ -122,7 +139,6 @@ const AdminProductForm = () => {
                 </select>
 
                 <label className="block">Product Images (4–6):</label>
-                {/* Product Images */}
                 <input
                     type="file"
                     accept="image/*"
@@ -133,7 +149,6 @@ const AdminProductForm = () => {
                     className="w-full border p-2"
                 />
 
-
                 <label className="block">Highlights (3 items):</label>
                 {formData.highlights.map((h, index) => (
                     <div key={index} className="border p-2 space-y-1">
@@ -143,8 +158,6 @@ const AdminProductForm = () => {
                 ))}
 
                 <label className="block">Highlight Images (3):</label>
-
-                {/* Highlight Images */}
                 <input
                     type="file"
                     accept="image/*"
@@ -159,6 +172,7 @@ const AdminProductForm = () => {
                     {uploading ? "Uploading..." : "Submit Product"}
                 </button>
             </form>
+
             <Link
                 to="/admin-dashboard"
                 className="bg-yellow-500 mt-10 inline-block text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition"
