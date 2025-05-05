@@ -16,6 +16,8 @@ import ViewAllProducts from "../Components/Admin/ViewAllProducts/ViewAllProducts
 import OrderManagement from "../Components/Admin/OrderManagement/OrderManagement";
 import ReportGenerate from "../Components/Admin/ReportGenerate/ReportGenerate";
 import Settings from "../Components/Admin/Settings/Settings";
+import ProtectedAdminRoute from "../Pages/Authentication/ProtectedAdminRoute";
+import AdminLogin from "../Pages/Authentication/AdminLogin";
 
 const Routes = createBrowserRouter([
     {
@@ -60,10 +62,16 @@ const Routes = createBrowserRouter([
                     path: '/cart',
                     element: <CartPage />
                 },
+                {
+                    path: '/admin-login',
+                    element: <AdminLogin />
+                },
             ]
     }, {
         path: '/admin-dashboard',
-        element: <AdminMainDashboard />,
+        element: <ProtectedAdminRoute>
+            <AdminMainDashboard />
+        </ProtectedAdminRoute>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
@@ -72,7 +80,9 @@ const Routes = createBrowserRouter([
             },
             {
                 path: 'add-product',
-                element: <AdminAddProduct />,
+                element: <ProtectedAdminRoute>
+                    <AdminAddProduct />
+                </ProtectedAdminRoute>,
             },
             {
                 path: 'view-all-products',

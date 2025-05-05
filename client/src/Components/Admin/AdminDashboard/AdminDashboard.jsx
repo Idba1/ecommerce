@@ -99,10 +99,12 @@ const AdminDashboard = () => {
                     </nav>
                 </div>
                 <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-2 text-sm mt-4 hover:text-gray-100"
+                    onClick={() => {
+                        localStorage.removeItem("isAdmin");
+                        window.location.href = "/admin-login";
+                    }}
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                 >
-                    <LogOut className="w-4 h-4" />
                     Logout
                 </button>
             </aside>
