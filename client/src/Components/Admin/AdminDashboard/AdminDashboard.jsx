@@ -23,7 +23,9 @@ import {
     TrendingUp,
     Users,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 // UI Components
 export function Card({ className = "", children }) {
@@ -43,6 +45,15 @@ export function CardContent({ children, className = "" }) {
 }
 
 const AdminDashboard = () => {
+    const navigate = useNavigate();
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logOut()
+            .then(() => navigate("/login"))
+            .catch((err) => console.error(err));
+    };
+
     const revenueData = [
         { name: "Sun", thisWeek: 1000, lastWeek: 1200 },
         { name: "Mon", thisWeek: 2000, lastWeek: 2200 },
@@ -87,10 +98,13 @@ const AdminDashboard = () => {
                         ))}
                     </nav>
                 </div>
-                <Link to="/logout" className="flex items-center gap-2 text-sm mt-4 hover:text-gray-100">
+                <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 text-sm mt-4 hover:text-gray-100"
+                >
                     <LogOut className="w-4 h-4" />
                     Logout
-                </Link>
+                </button>
             </aside>
 
             <main className="col-span-5 space-y-6">
@@ -171,4 +185,4 @@ const AdminDashboard = () => {
     );
 };
 
-export default AdminDashboard;  
+export default AdminDashboard;
