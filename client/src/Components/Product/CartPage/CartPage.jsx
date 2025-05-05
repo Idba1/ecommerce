@@ -41,7 +41,7 @@ const CartPage = () => {
 
     return (
         <div className="max-w-5xl mx-auto py-10 px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center">My Cart</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">My Cart</h2>
 
             {cartItems.length === 0 ? (
                 <div className="text-center text-gray-600">
@@ -51,19 +51,19 @@ const CartPage = () => {
                     </Link>
                 </div>
             ) : (
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="flex flex-col lg:flex-row gap-8">
                     {/* Cart Items */}
-                    <div className="md:col-span-2 space-y-6">
+                    <div className="flex-1 space-y-6">
                         {cartItems.map((item) => (
-                            <div key={item._id} className="flex items-center gap-4 border p-4 rounded shadow-sm bg-white">
-                                <img src={item.image} alt={item.title} className="w-20 h-20 object-cover rounded" />
-                                <div className="flex-1">
+                            <div key={item._id} className="flex flex-col sm:flex-row sm:items-center gap-4 border p-4 rounded shadow-sm bg-white">
+                                <img src={item.image} alt={item.title} className="w-full sm:w-24 h-24 object-cover rounded mx-auto sm:mx-0" />
+                                <div className="flex-1 text-center sm:text-left">
                                     <h3 className="font-semibold text-lg">{item.title}</h3>
                                     <p className="text-sm text-gray-600">Size: {item.size}</p>
                                     <p className="text-sm text-gray-600">Price: ${item.price.toFixed(2)}</p>
 
                                     {/* Quantity Controls */}
-                                    <div className="flex items-center gap-2 mt-2">
+                                    <div className="flex justify-center sm:justify-start items-center gap-2 mt-2">
                                         <button
                                             onClick={() => updateQuantity(item._id, item.quantity - 1)}
                                             className="px-2 py-1 border rounded hover:bg-gray-100"
@@ -77,7 +77,7 @@ const CartPage = () => {
                                 </div>
                                 <button
                                     onClick={() => removeItem(item._id)}
-                                    className="text-red-500 hover:text-red-700 font-semibold text-sm"
+                                    className="text-red-500 hover:text-red-700 font-semibold text-sm text-center sm:text-right"
                                 >
                                     Remove
                                 </button>
@@ -86,7 +86,7 @@ const CartPage = () => {
                     </div>
 
                     {/* Summary + Checkout */}
-                    <div className="bg-white p-6 rounded shadow space-y-4 h-fit">
+                    <div className="w-full lg:w-1/3 bg-white p-6 rounded shadow space-y-4 h-fit">
                         <h3 className="text-xl font-semibold border-b pb-2">Order Summary</h3>
                         <div className="flex justify-between">
                             <span>Subtotal</span>
