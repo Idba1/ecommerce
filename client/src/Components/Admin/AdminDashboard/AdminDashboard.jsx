@@ -63,7 +63,7 @@ const AdminDashboard = () => {
     const navItems = [
         { label: "Home", icon: <Home className="w-5 h-5" />, to: "/" },
         { label: "Add New Product", icon: <PlusSquare className="w-5 h-5" />, to: "/admin-dashboard/add-product" },
-        { label: "View All Products", icon: <List className="w-5 h-5" />, to: "/admin-dashboard/products" },
+        { label: "View All Products", icon: <List className="w-5 h-5" />, to: "/admin-dashboard/view-all-products" },
         { label: "Order Management", icon: <PackageSearch className="w-5 h-5" />, to: "/admin-dashboard/orders" },
         { label: "Report Generate", icon: <FileBarChart2 className="w-5 h-5" />, to: "/admin-dashboard/reports" },
         { label: "Settings", icon: <Settings className="w-5 h-5" />, to: "/admin-dashboard/settings" },

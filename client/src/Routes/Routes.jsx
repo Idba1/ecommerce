@@ -12,6 +12,7 @@ import AdminAddProduct from "../Components/Product/AdminAddProduct/AdminAddProdu
 import CartPage from "../Components/Product/CartPage/CartPage";
 import AdminDashboard from "../Components/Admin/AdminDashboard/AdminDashboard";
 import AdminMainDashboard from "../Components/Admin/AdminMainDashboard/AdminMainDashboard";
+import ViewAllProducts from "../Components/Admin/ViewAllProducts/ViewAllProducts";
 
 const Routes = createBrowserRouter([
     {
@@ -69,6 +70,10 @@ const Routes = createBrowserRouter([
             {
                 path: 'add-product',
                 element: <AdminAddProduct />,
+            },
+            {
+                path: 'view-all-products',
+                element: <ViewAllProducts />,
             },
         ]
     }
