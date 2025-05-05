@@ -81,8 +81,8 @@ const Nav = () => {
                         {/* Dropdown */}
                         {open && (
                             <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg z-10">
-                                <Link to="/dashboard" className="block px-4 py-2 hover:bg-gray-100">Dashboard</Link>
-                                <Link to="/orders" className="block px-4 py-2 hover:bg-gray-100">My Orders</Link>
+                                {/* <Link to="/dashboard" className="block px-4 py-2 hover:bg-gray-100">Dashboard</Link> */}
+                                <Link to="/cart" className="block px-4 py-2 hover:bg-gray-100">My Orders</Link>
                                 <button
                                     onClick={handleLogout}
                                     className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2"

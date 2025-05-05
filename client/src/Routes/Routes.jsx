@@ -18,6 +18,7 @@ import ReportGenerate from "../Components/Admin/ReportGenerate/ReportGenerate";
 import Settings from "../Components/Admin/Settings/Settings";
 import ProtectedAdminRoute from "../Pages/Authentication/ProtectedAdminRoute";
 import AdminLogin from "../Pages/Authentication/AdminLogin";
+import ProtectedRoute from "../Pages/Authentication/ProtectedRoute";
 
 const Routes = createBrowserRouter([
     {
@@ -60,7 +61,9 @@ const Routes = createBrowserRouter([
                 // },
                 {
                     path: '/cart',
-                    element: <CartPage />
+                    element: <ProtectedRoute>
+                        <CartPage />
+                    </ProtectedRoute>
                 },
                 {
                     path: '/admin-login',
