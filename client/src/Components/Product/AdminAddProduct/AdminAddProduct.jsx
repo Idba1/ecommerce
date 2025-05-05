@@ -1,6 +1,7 @@
 // AdminProductForm.jsx
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AdminProductForm = () => {
     const [formData, setFormData] = useState({
@@ -158,6 +159,12 @@ const AdminProductForm = () => {
                     {uploading ? "Uploading..." : "Submit Product"}
                 </button>
             </form>
+            <Link
+                to="/admin-dashboard"
+                className="bg-yellow-500 mt-10 inline-block text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition"
+            >
+                Back to Admin Dashboard
+            </Link>
         </div>
     );
 };

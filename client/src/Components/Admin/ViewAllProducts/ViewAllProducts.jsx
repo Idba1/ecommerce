@@ -1,11 +1,12 @@
 // src/Components/Admin/ViewAllProducts.jsx
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ViewAllProducts = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/collection") 
+        fetch("http://localhost:5000/collection")
             .then((res) => res.json())
             .then((data) => setProducts(data))
             .catch((err) => console.error(err));
@@ -28,6 +29,12 @@ const ViewAllProducts = () => {
                     </div>
                 ))}
             </div>
+            <Link
+                to="/admin-dashboard"
+                className="bg-yellow-500 mt-10 inline-block text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition"
+            >
+                Back to Admin Dashboard
+            </Link>
         </div>
     );
 };
