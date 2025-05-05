@@ -1,6 +1,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 import { FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaTiktok } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     const handleSubscribe = (e) => {
@@ -9,7 +10,7 @@ const Footer = () => {
             icon: 'success',
             title: 'Subscribed!',
             text: 'Thank you for subscribing to our newsletter.',
-            confirmButtonColor: '#facc15', // Tailwind's yellow-400
+            confirmButtonColor: '#facc15',
         });
     };
 
@@ -42,10 +43,10 @@ const Footer = () => {
                     <div>
                         <h3 className="font-bold mb-2">CUSTOMER</h3>
                         <ul className="space-y-1">
-                            <li>Account</li>
-                            <li>Cart</li>
-                            <li>Shipping Charge</li>
-                            <li>FAQ</li>
+                            <li><Link to="/account" className="hover:underline">Account</Link></li>
+                            <li><Link to="/cart" className="hover:underline">Cart</Link></li>
+                            <li><Link to="/shipping-charge" className="hover:underline">Shipping Charge</Link></li>
+                            <li><Link to="/FrequentlyAskedQuestions" className="hover:underline">FAQ</Link></li>
                         </ul>
                     </div>
 
@@ -53,9 +54,9 @@ const Footer = () => {
                     <div>
                         <h3 className="font-bold mb-2">INFORMATION</h3>
                         <ul className="space-y-1">
-                            <li>Privacy policy</li>
-                            <li>Term & Condition</li>
-                            <li>Return & Refund</li>
+                            <li><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link></li>
+                            <li><Link to="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link></li>
+                            <li><Link to="/return-refund" className="hover:underline">Return & Refund</Link></li>
                         </ul>
                     </div>
 

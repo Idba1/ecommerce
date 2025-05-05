@@ -19,6 +19,7 @@ import Settings from "../Components/Admin/Settings/Settings";
 import ProtectedAdminRoute from "../Pages/Authentication/ProtectedAdminRoute";
 import AdminLogin from "../Pages/Authentication/AdminLogin";
 import ProtectedRoute from "../Pages/Authentication/ProtectedRoute";
+import FrequentlyAskedQuestions from "../Components/Footer/FrequentlyAskedQuestions/FrequentlyAskedQuestions";
 
 const Routes = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ const Routes = createBrowserRouter([
                     element: <ProtectedRoute>
                         <CartPage />
                     </ProtectedRoute>
+                },
+                {
+                    path: '/FrequentlyAskedQuestions',
+                    element: <FrequentlyAskedQuestions />
                 },
                 {
                     path: '/admin-login',
