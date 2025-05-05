@@ -13,6 +13,9 @@ import CartPage from "../Components/Product/CartPage/CartPage";
 import AdminDashboard from "../Components/Admin/AdminDashboard/AdminDashboard";
 import AdminMainDashboard from "../Components/Admin/AdminMainDashboard/AdminMainDashboard";
 import ViewAllProducts from "../Components/Admin/ViewAllProducts/ViewAllProducts";
+import OrderManagement from "../Components/Admin/OrderManagement/OrderManagement";
+import ReportGenerate from "../Components/Admin/ReportGenerate/ReportGenerate";
+import Settings from "../Components/Admin/Settings/Settings";
 
 const Routes = createBrowserRouter([
     {
@@ -74,6 +77,18 @@ const Routes = createBrowserRouter([
             {
                 path: 'view-all-products',
                 element: <ViewAllProducts />,
+            },
+            {
+                path: 'orders',
+                element: <OrderManagement />,
+            },
+            {
+                path: 'reports',
+                element: <ReportGenerate />,
+            },
+            {
+                path: 'settings',
+                element: <Settings />,
             },
         ]
     }
