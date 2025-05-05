@@ -1,7 +1,18 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 import { FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaTiktok } from 'react-icons/fa';
 
 const Footer = () => {
+    const handleSubscribe = (e) => {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'success',
+            title: 'Subscribed!',
+            text: 'Thank you for subscribing to our newsletter.',
+            confirmButtonColor: '#facc15', // Tailwind's yellow-400
+        });
+    };
+
     return (
         <footer className="bg-white text-black py-10 border-t">
             <div className="container mx-auto px-4">
@@ -33,7 +44,6 @@ const Footer = () => {
                         <ul className="space-y-1">
                             <li>Account</li>
                             <li>Cart</li>
-                            <li>Wishlist</li>
                             <li>Shipping Charge</li>
                             <li>FAQ</li>
                         </ul>
@@ -45,16 +55,30 @@ const Footer = () => {
                         <ul className="space-y-1">
                             <li>Privacy policy</li>
                             <li>Term & Condition</li>
-                            <li>Shipping</li>
                             <li>Return & Refund</li>
-                            <li>FAQs</li>
                         </ul>
                     </div>
 
-                    {/* Mobile Apps (Empty placeholder) */}
+                    {/* Mobile Apps + Newsletter */}
                     <div>
                         <h3 className="font-bold mb-2">MOBILE APPS</h3>
-                        <p className="text-gray-400">Coming soon...</p>
+                        <p className="text-gray-400 mb-4">Coming soon...</p>
+
+                        <h4 className="font-semibold text-sm mb-2 text-gray-800">📩 Subscribe to our Newsletter</h4>
+                        <form onSubmit={handleSubscribe} className="space-y-2">
+                            <input
+                                type="email"
+                                required
+                                placeholder="Enter your email"
+                                className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none"
+                            />
+                            <button
+                                type="submit"
+                                className="w-full bg-yellow-500 text-white text-sm px-3 py-1 rounded hover:bg-yellow-600 transition"
+                            >
+                                Subscribe
+                            </button>
+                        </form>
                     </div>
                 </div>
 
