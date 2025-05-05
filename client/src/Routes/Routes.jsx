@@ -20,6 +20,11 @@ import ProtectedAdminRoute from "../Pages/Authentication/ProtectedAdminRoute";
 import AdminLogin from "../Pages/Authentication/AdminLogin";
 import ProtectedRoute from "../Pages/Authentication/ProtectedRoute";
 import FrequentlyAskedQuestions from "../Components/Footer/FrequentlyAskedQuestions/FrequentlyAskedQuestions";
+import Account from "../Components/Footer/Account/Account";
+import ShippingCharge from "../Components/Footer/ShippingCharge/ShippingCharge";
+import ReturnRefund from "../Components/Footer/ReturnRefund/ReturnRefund";
+import TermsAndConditions from "../Components/Footer/TermsAndConditions/TermsAndConditions";
+import PrivacyPolicy from "../Components/Footer/PrivacyPolicy/PrivacyPolicy";
 
 const Routes = createBrowserRouter([
     {
@@ -69,6 +74,26 @@ const Routes = createBrowserRouter([
                 {
                     path: '/FrequentlyAskedQuestions',
                     element: <FrequentlyAskedQuestions />
+                },
+                {
+                    path: '/account',
+                    element: <Account />
+                },
+                {
+                    path: '/shipping-charge',
+                    element: <ShippingCharge />
+                },
+                {
+                    path: '/return-refund',
+                    element: <ReturnRefund />
+                },
+                {
+                    path: '/terms-and-conditions',
+                    element: <TermsAndConditions />
+                },
+                {
+                    path: '/privacy-policy',
+                    element: <PrivacyPolicy />
                 },
                 {
                     path: '/admin-login',
