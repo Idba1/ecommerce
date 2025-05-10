@@ -93,6 +93,26 @@ async function run() {
             res.send(result);
         });
 
+        // Update product
+        app.put('/collection/:id', async (req, res) => {
+            const { id } = req.params;
+            const updatedProduct = req.body;
+
+            const result = await collection.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: updatedProduct }
+            );
+
+            res.send(result);
+        });
+
+        app.put('/collection/:id', async (req, res) => {
+            const { id } = req.params;
+            const updateDoc = { $set: req.body };
+            const result = await collection.updateOne({ _id: new ObjectId(id) }, updateDoc);
+            res.send(result);
+        });
+
         // =====================
         // === Orders Routes ===
         // =====================
