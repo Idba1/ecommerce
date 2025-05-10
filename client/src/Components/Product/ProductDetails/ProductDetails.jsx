@@ -103,6 +103,29 @@ const ProductDetails = () => {
                         ))}
                     </div>
 
+                    {/* 🔴 Color & Quantity Display Section */}
+                    {product.colors && product.colors.length > 0 && (
+                        <div className="mt-4 space-y-2">
+                            <h3 className="font-semibold">Available Colors & Quantities:</h3>
+                            <div className="flex flex-wrap gap-3">
+                                {product.colors.map((c, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="flex items-center gap-2 border px-3 py-1 rounded bg-gray-50"
+                                    >
+                                        <div
+                                            className="w-4 h-4 rounded-full border"
+                                            style={{ backgroundColor: c.color }}
+                                        />
+                                        <span className="text-sm capitalize">{c.color}</span>
+                                        <span className="text-xs text-gray-500">({c.quantity} in stock)</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    {/* 🔴 End Color & Quantity Section */}
+
                     {/* Quantity + Buttons */}
                     <div className="flex items-center gap-4 mt-4">
                         <input

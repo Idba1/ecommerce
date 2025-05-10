@@ -1,8 +1,7 @@
-// AdminProductForm.jsx
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2"; // ✅ Import SweetAlert2
+import Swal from "sweetalert2";
 
 const AdminProductForm = () => {
     const [formData, setFormData] = useState({
@@ -26,6 +25,7 @@ const AdminProductForm = () => {
     const [images, setImages] = useState([]);
     const [highlightImages, setHighlightImages] = useState([]);
     const [uploading, setUploading] = useState(false);
+    const [colors, setColors] = useState([{ color: "", quantity: "" }]);
 
     const handleImageUpload = async (imageFiles) => {
         const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
@@ -42,6 +42,30 @@ const AdminProductForm = () => {
         }
 
         return urls;
+    };
+
+    const handleColorChange = (index, field, value) => {
+        const updatedColors = [...colors];
+        updatedColors[index][field] = value;
+        setColors(updatedColors);
+    };
+
+    const addColorField = () => {
+        setColors([...colors, { color: "", quantity: "" }]);
+    };
+
+    const removeColorField = (index) => {
+        if (colors.length > 1) {
+            const updated = [...colors];
+            updated.splice(index, 1);
+            setColors(updated);
+        }
+    };
+
+    const handleHighlightChange = (index, field, value) => {
+        const newHighlights = [...formData.highlights];
+        newHighlights[index][field] = value;
+        setFormData({ ...formData, highlights: newHighlights });
     };
 
     const handleSubmit = async (e) => {
@@ -88,9 +112,14 @@ const AdminProductForm = () => {
                 },
                 highlights,
                 category: formData.category,
+                colors: colors.map(c => ({
+                    color: c.color.trim(),
+                    quantity: Number(c.quantity)
+                })),
             };
 
             await axios.post("http://localhost:5000/collection", product);
+
             Swal.fire({
                 icon: "success",
                 title: "Success!",
@@ -106,12 +135,6 @@ const AdminProductForm = () => {
         } finally {
             setUploading(false);
         }
-    };
-
-    const handleHighlightChange = (index, field, value) => {
-        const newHighlights = [...formData.highlights];
-        newHighlights[index][field] = value;
-        setFormData({ ...formData, highlights: newHighlights });
     };
 
     return (
@@ -138,16 +161,37 @@ const AdminProductForm = () => {
                     <option value="accessories">Accessories</option>
                 </select>
 
+                {/* Color and Quantity */}
+                <div className="space-y-2">
+                    <label className="block font-semibold">Colors and Quantity</label>
+                    {colors.map((cq, index) => (
+                        <div key={index} className="flex gap-2 items-center">
+                            <input
+                                type="text"
+                                placeholder="Color"
+                                value={cq.color}
+                                onChange={(e) => handleColorChange(index, "color", e.target.value)}
+                                className="w-1/2 p-2 border"
+                                required
+                            />
+                            <input
+                                type="number"
+                                placeholder="Quantity"
+                                value={cq.quantity}
+                                onChange={(e) => handleColorChange(index, "quantity", e.target.value)}
+                                className="w-1/2 p-2 border"
+                                required
+                            />
+                            {colors.length > 1 && (
+                                <button type="button" onClick={() => removeColorField(index)} className="text-red-600">✕</button>
+                            )}
+                        </div>
+                    ))}
+                    <button type="button" onClick={addColorField} className="text-blue-600">+ Add Color</button>
+                </div>
+
                 <label className="block">Product Images (4–6):</label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={(e) =>
-                        setImages((prev) => [...prev, ...Array.from(e.target.files)])
-                    }
-                    className="w-full border p-2"
-                />
+                <input type="file" accept="image/*" multiple onChange={(e) => setImages((prev) => [...prev, ...Array.from(e.target.files)])} className="w-full border p-2" />
 
                 <label className="block">Highlights (3 items):</label>
                 {formData.highlights.map((h, index) => (
@@ -158,25 +202,14 @@ const AdminProductForm = () => {
                 ))}
 
                 <label className="block">Highlight Images (3):</label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={(e) =>
-                        setHighlightImages((prev) => [...prev, ...Array.from(e.target.files)])
-                    }
-                    className="w-full border p-2"
-                />
+                <input type="file" accept="image/*" multiple onChange={(e) => setHighlightImages((prev) => [...prev, ...Array.from(e.target.files)])} className="w-full border p-2" />
 
                 <button type="submit" className="w-full py-2 bg-blue-600 text-white rounded" disabled={uploading}>
                     {uploading ? "Uploading..." : "Submit Product"}
                 </button>
             </form>
 
-            <Link
-                to="/admin-dashboard"
-                className="bg-yellow-500 mt-10 inline-block text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition"
-            >
+            <Link to="/admin-dashboard" className="bg-yellow-500 mt-10 inline-block text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
                 Back to Admin Dashboard
             </Link>
         </div>
