@@ -102,7 +102,7 @@ const CartPage = () => {
                             <span>${total.toFixed(2)}</span>
                         </div>
                         <Link
-                            to="/payment"
+                            to="/"
                             className="block w-full bg-black text-white text-center py-2 rounded hover:bg-gray-800 transition"
                         >
                             Proceed to Checkout

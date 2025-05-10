@@ -19,12 +19,23 @@ const Footer = () => {
             <div className="container mx-auto px-4">
                 {/* Social Media Icons */}
                 <div className="flex justify-center space-x-4 mb-4">
-                    <FaFacebookF className="text-xl text-yellow-500 hover:text-blue-700 cursor-pointer" />
-                    <FaInstagram className="text-xl text-yellow-500 hover:text-indigo-500 cursor-pointer" />
-                    <FaYoutube className="text-xl text-yellow-500 hover:text-red-700 cursor-pointer" />
-                    <FaLinkedinIn className="text-xl text-yellow-500 hover:text-blue-800 cursor-pointer" />
-                    <FaTiktok className="text-xl text-yellow-500 hover:text-black cursor-pointer" />
+                    <a href="https://www.facebook.com/e24.com.shop" target="_blank" rel="noopener noreferrer">
+                        <FaFacebookF className="text-xl text-yellow-500 hover:text-blue-700 cursor-pointer" />
+                    </a>
+                    <a href="https://www.instagram.com/e24.com.bd/?fbclid=IwY2xjawKMq05leHRuA2FlbQIxMABicmlkETE2bnBNN3F5SUdNZEpqNnlRAR4drLUeZmYSqzsTqMUcqtI4ZYQKu0pjXy76KoTNfw6_Ml3u-KxhBogDN2k4dQ_aem_2nF-ZKsY_eZjbAcjklxzcg#" target="_blank" rel="noopener noreferrer">
+                        <FaInstagram className="text-xl text-yellow-500 hover:text-indigo-500 cursor-pointer" />
+                    </a>
+                    <a href="https://e24.com.bd/" target="_blank" rel="noopener noreferrer">
+                        <FaYoutube className="text-xl text-yellow-500 hover:text-red-700 cursor-pointer" />
+                    </a>
+                    <a href="https://e24.com.bd/" target="_blank" rel="noopener noreferrer">
+                        <FaLinkedinIn className="text-xl text-yellow-500 hover:text-blue-800 cursor-pointer" />
+                    </a>
+                    <a href="https://e24.com.bd/" target="_blank" rel="noopener noreferrer">
+                        <FaTiktok className="text-xl text-yellow-500 hover:text-black cursor-pointer" />
+                    </a>
                 </div>
+
 
                 {/* Slogan */}
                 <p className="text-center text-sm mb-10">Explore Brands... Think to the.</p>
