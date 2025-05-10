@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Swal from 'sweetalert2';
 
 const UpdateProduct = () => {
     const { id } = useParams();
@@ -115,15 +116,33 @@ const UpdateProduct = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedProduct),
             });
+
             const result = await res.json();
             if (result.modifiedCount > 0) {
-                alert("Product updated successfully!");
-                navigate("/admin-dashboard/view-all-products");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Updated!',
+                    text: 'Product updated successfully!',
+                    confirmButtonColor: '#facc15', // Tailwind yellow-400
+                }).then(() => {
+                    navigate("/admin-dashboard/view-all-products");
+                });
             } else {
-                alert("No changes were made.");
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No Changes',
+                    text: 'No changes were made to the product.',
+                    confirmButtonColor: '#facc15',
+                });
             }
         } catch (error) {
             console.error("Error updating product:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Update Failed',
+                text: 'Something went wrong while updating the product.',
+                confirmButtonColor: '#f87171',
+            });
         }
     };
 

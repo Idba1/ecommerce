@@ -100,19 +100,22 @@ const ViewAllProducts = () => {
                             <p className="text-gray-600 font-medium mt-1">${product.price}</p>
                             <p className="text-yellow-600 text-sm mt-1">Rating: {product.rating}</p>
 
-                            <div className="mt-4 flex justify-between">
-                                <Link
-                                    to={`/admin-dashboard/update-product/${product._id}`}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-lg transition"
-                                >
-                                    Update
-                                </Link>
-                                <button
-                                    onClick={() => deleteProduct(product._id)}
-                                    className="bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-2 rounded-lg transition"
-                                >
-                                    Delete
-                                </button>
+                            <div className="mt-4 flex justify-end">
+                                <div className="mt-4 flex space-x-3">
+                                    <Link
+                                        to={`/admin-dashboard/update-product/${product._id}`}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-lg transition"
+                                    >
+                                        Update
+                                    </Link>
+                                    <button
+                                        onClick={() => deleteProduct(product._id)}
+                                        className="bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-2 rounded-lg transition"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+
                             </div>
                         </div>
                     ))
