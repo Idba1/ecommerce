@@ -1,10 +1,11 @@
-// src/Components/Admin/ViewAllProducts.jsx
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const ViewAllProducts = () => {
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -12,6 +13,7 @@ const ViewAllProducts = () => {
             .then((res) => res.json())
             .then((data) => {
                 setProducts(data);
+                setFilteredProducts(data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -19,6 +21,15 @@ const ViewAllProducts = () => {
                 setLoading(false);
             });
     }, []);
+
+    const handleSearch = (e) => {
+        const value = e.target.value.toLowerCase();
+        setSearchTerm(value);
+        const filtered = products.filter((product) =>
+            product.title.toLowerCase().includes(value)
+        );
+        setFilteredProducts(filtered);
+    };
 
     const deleteProduct = async (id) => {
         const result = await Swal.fire({
@@ -40,7 +51,9 @@ const ViewAllProducts = () => {
             const data = await res.json();
 
             if (data.deletedCount > 0) {
-                setProducts((prev) => prev.filter((product) => product._id !== id));
+                const updated = products.filter((product) => product._id !== id);
+                setProducts(updated);
+                setFilteredProducts(updated);
                 Swal.fire('Deleted!', 'Product has been deleted.', 'success');
             } else {
                 Swal.fire('Failed!', 'Could not delete the product.', 'error');
@@ -57,41 +70,66 @@ const ViewAllProducts = () => {
 
     return (
         <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4">All Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {products.map((product) => (
-                    <div key={product._id} className="bg-white shadow rounded-xl p-4 relative">
-                        <img
-                            src={product.images?.[0]}
-                            alt={product.title}
-                            className="w-full h-40 object-cover rounded"
-                        />
-                        <h3 className="mt-2 text-lg font-semibold">{product.title}</h3>
-                        <p className="text-sm text-gray-600">${product.price}</p>
-                        <p className="text-sm text-yellow-600">Rating: {product.rating}</p>
-                        <button
-                            onClick={() => deleteProduct(product._id)}
-                            className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded hover:bg-red-600 transition"
-                        >
-                            Delete
-                        </button>
-                        <Link
-                            to={`/admin-dashboard/update-product/${product._id}`}
-                            className="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 text-xs rounded hover:bg-blue-600 transition"
-                        >
-                            Update
-                        </Link>
+            <h2 className="text-3xl font-bold mb-6 text-center text-yellow-600">All Products</h2>
 
-                    </div>
-                ))}
+            {/* Search Bar */}
+            <div className="mb-6 flex justify-center">
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    placeholder="Search products..."
+                    className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                />
             </div>
 
-            <Link
-                to="/admin-dashboard"
-                className="bg-yellow-500 mt-10 inline-block text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition"
-            >
-                Back to Admin Dashboard
-            </Link>
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProducts.length > 0 ? (
+                    filteredProducts.map((product) => (
+                        <div
+                            key={product._id}
+                            className="bg-white border rounded-2xl shadow hover:shadow-lg transition p-4 relative flex flex-col"
+                        >
+                            <img
+                                src={product.images?.[0]}
+                                alt={product.title}
+                                className="w-full h-52 object-cover rounded-xl mb-4"
+                            />
+                            <h3 className="text-lg font-semibold text-gray-800">{product.title}</h3>
+                            <p className="text-gray-600 font-medium mt-1">${product.price}</p>
+                            <p className="text-yellow-600 text-sm mt-1">Rating: {product.rating}</p>
+
+                            <div className="mt-4 flex justify-between">
+                                <Link
+                                    to={`/admin-dashboard/update-product/${product._id}`}
+                                    className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-lg transition"
+                                >
+                                    Update
+                                </Link>
+                                <button
+                                    onClick={() => deleteProduct(product._id)}
+                                    className="bg-red-500 hover:bg-red-600 text-white text-xs px-4 py-2 rounded-lg transition"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-center col-span-full text-gray-500">No products found.</p>
+                )}
+            </div>
+
+            {/* Back to Dashboard */}
+            <div className="mt-10 text-center">
+                <Link
+                    to="/admin-dashboard"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg text-sm font-medium transition"
+                >
+                    Back to Admin Dashboard
+                </Link>
+            </div>
         </div>
     );
 };
