@@ -75,6 +75,13 @@ const ViewAllProducts = () => {
                         >
                             Delete
                         </button>
+                        <Link
+                            to={`/admin-dashboard/update-product/${product._id}`}
+                            className="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 text-xs rounded hover:bg-blue-600 transition"
+                        >
+                            Update
+                        </Link>
+
                     </div>
                 ))}
             </div>

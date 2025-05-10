@@ -25,6 +25,7 @@ import ShippingCharge from "../Components/Footer/ShippingCharge/ShippingCharge";
 import ReturnRefund from "../Components/Footer/ReturnRefund/ReturnRefund";
 import TermsAndConditions from "../Components/Footer/TermsAndConditions/TermsAndConditions";
 import PrivacyPolicy from "../Components/Footer/PrivacyPolicy/PrivacyPolicy";
+import UpdateProduct from "../Components/Admin/UpdateProduct/UpdateProduct";
 
 const Routes = createBrowserRouter([
     {
@@ -134,6 +135,10 @@ const Routes = createBrowserRouter([
             {
                 path: 'settings',
                 element: <Settings />,
+            },
+            {
+                path: 'update-product/:id',
+                element: <UpdateProduct />,
             },
         ]
     }
