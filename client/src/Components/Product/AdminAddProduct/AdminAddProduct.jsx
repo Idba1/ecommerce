@@ -118,7 +118,7 @@ const AdminProductForm = () => {
                 })),
             };
 
-            await axios.post("http://localhost:5000/collection", product);
+            await axios.post("https://server-three-umber-95.vercel.app/collection", product);
 
             Swal.fire({
                 icon: "success",

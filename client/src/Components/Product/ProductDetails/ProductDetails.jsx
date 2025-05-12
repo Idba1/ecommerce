@@ -14,7 +14,7 @@ const ProductDetails = () => {
     const [activeTab, setActiveTab] = useState("description");
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/collection/${id}`)
+        axios.get(`https://server-three-umber-95.vercel.app/collection/${id}`)
             .then(res => {
                 setProduct(res.data);
                 setSelectedImage(res.data.images?.[0] || "");
@@ -39,7 +39,7 @@ const ProductDetails = () => {
             quantity,
         };
 
-        fetch("http://localhost:5000/cart", {
+        fetch("https://server-three-umber-95.vercel.app/cart", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(cartItem),

@@ -10,7 +10,7 @@ const CategoryPage = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await fetch("http://localhost:5000/collection");
+                const res = await fetch("https://server-three-umber-95.vercel.app/collection");
                 const data = await res.json();
                 const filtered = data.filter(
                     (product) =>

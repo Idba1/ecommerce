@@ -9,7 +9,7 @@ const ViewAllProducts = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:5000/collection")
+        fetch("https://server-three-umber-95.vercel.app/collection")
             .then((res) => res.json())
             .then((data) => {
                 setProducts(data);
@@ -45,7 +45,7 @@ const ViewAllProducts = () => {
         if (!result.isConfirmed) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/collection/${id}`, {
+            const res = await fetch(`https://server-three-umber-95.vercel.app/collection/${id}`, {
                 method: "DELETE",
             });
             const data = await res.json();

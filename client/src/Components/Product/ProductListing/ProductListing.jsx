@@ -31,7 +31,7 @@ const ProductListing = () => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                const res = await fetch("http://localhost:5000/collection");
+                const res = await fetch("https://server-three-umber-95.vercel.app/collection");
                 const data = await res.json();
                 setProducts(data);
             } catch (err) {

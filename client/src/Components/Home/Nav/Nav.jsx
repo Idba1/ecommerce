@@ -17,7 +17,7 @@ const Nav = () => {
 
     const fetchCartCount = () => {
         if (user?.email) {
-            fetch(`http://localhost:5000/cart?email=${user.email}`)
+            fetch(`https://server-three-umber-95.vercel.app/cart?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     const total = data.reduce((sum, item) => sum + (item.quantity || 1), 0);

@@ -22,7 +22,7 @@ const UpdateProduct = () => {
     });
 
     useEffect(() => {
-        fetch(`http://localhost:5000/collection/${id}`)
+        fetch(`https://server-three-umber-95.vercel.app/collection/${id}`)
             .then(res => res.json())
             .then(data => {
                 setFormData({
@@ -111,7 +111,7 @@ const UpdateProduct = () => {
         };
 
         try {
-            const res = await fetch(`http://localhost:5000/collection/${id}`, {
+            const res = await fetch(`https://server-three-umber-95.vercel.app/collection/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedProduct),

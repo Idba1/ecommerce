@@ -8,7 +8,7 @@ const CartPage = () => {
 
     const fetchCart = () => {
         if (user) {
-            fetch(`http://localhost:5000/cart?email=${user.email}`)
+            fetch(`https://server-three-umber-95.vercel.app/cart?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => setCartItems(data));
         }
@@ -20,7 +20,7 @@ const CartPage = () => {
 
     const updateQuantity = async (id, quantity) => {
         if (quantity < 1) return;
-        await fetch(`http://localhost:5000/cart/${id}`, {
+        await fetch(`https://server-three-umber-95.vercel.app/cart/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ quantity }),
@@ -30,7 +30,7 @@ const CartPage = () => {
     };
 
     const removeItem = async (id) => {
-        await fetch(`http://localhost:5000/cart/${id}`, { method: "DELETE" });
+        await fetch(`https://server-three-umber-95.vercel.app/cart/${id}`, { method: "DELETE" });
         fetchCart();
         window.dispatchEvent(new Event("cart-updated"));
     };
