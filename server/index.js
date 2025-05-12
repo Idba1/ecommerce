@@ -16,7 +16,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try {
-        await client.connect();
+        // await client.connect();
 
         const db = client.db("e-24");
         const collection = db.collection("collection");
@@ -130,7 +130,7 @@ async function run() {
             res.send(result);
         });
 
-        console.log("✅ Connected to MongoDB successfully");
+        // console.log("✅ Connected to MongoDB successfully");
 
     } catch (err) {
         console.error("❌ MongoDB error:", err);
